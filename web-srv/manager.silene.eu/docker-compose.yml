@@ -9,11 +9,7 @@ services:
       - 8000
     ports:
       - "127.0.0.1:9000:9000"
-    hostname: ${HOSTNAME}
-    #environment:
-      #VIRTUAL_HOST: manager.silene.eu
-      #VIRTUAL_PORT: 9000
-      #LETSENCRYPT_HOST: manager.silene.eu
+    hostname: ${HOSTNAME:-sinp-paca-web}
     command: --admin-password ${ENCRYPTED_PASSWORD}
     command: -H unix:///var/run/docker.sock
     volumes:
@@ -26,4 +22,4 @@ volumes:
 networks:
   default:
     external:
-      name: ${NETWORK}
+      name: ${NETWORK:-nginx-proxy}

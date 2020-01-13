@@ -1,0 +1,68 @@
+version: "3.7"
+
+services:
+  monitor-influxdb:
+    image: influxdb:1.7.9
+    container_name: monitor-influxdb
+    restart: unless-stopped
+    ports:
+      - "8086:8086"
+      - "8089:8089/udp"
+    hostname: ${HOSTNAME_INFLUXDB:-influxdb-paca-sinp}
+    env_file:
+      - ./influxdb/.env.influxdb
+    networks:
+      - nginx-proxy
+    volumes:
+      - influxdb-storage:/var/lib/influxdb/data
+
+  monitor-telegraf:
+    image: telegraf:1.13.0
+    container_name: monitor-telegraf
+    restart: unless-stopped
+    depends_on:
+      - monitor-influxdb
+    hostname: ${HOSTNAME:-web-paca-sinp}
+    environment:
+      HOST_ETC: /host/etc
+      HOST_PROC: /host/proc
+      HOST_SYS: /host/sys
+      HOST_VAR: /host/var
+      HOST_RUN: /host/run
+      HOST_MOUNT_PREFIX: /host
+    networks:
+        - nginx-proxy
+    volumes:
+      - ./telegraf/telegraf.conf:/etc/telegraf/telegraf.conf:ro
+      - /:/host:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      #- /var/log/nginx:/var/log/nginx
+      - /opt/srvstatus/status.json:/opt/srvstatus/status.json
+
+  monitor-grafana:
+    image: grafana/grafana:6.5.2
+    container_name: monitor-grafana
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:3000:3000"
+    env_file:
+      - ./grafana/.env.grafana
+    depends_on:
+      - monitor-influxdb
+    networks:
+      - nginx-proxy
+    #environment:
+      #VIRTUAL_HOST: monitor.silene.eu
+      #VIRTUAL_PORT: 3000
+      #LETSENCRYPT_HOST: monitor.silene.eu
+    volumes:
+        - grafana-storage:/var/lib/grafana
+    
+volumes:
+  grafana-storage:
+  influxdb-storage:
+    
+networks:
+  nginx-proxy:
+    external: true
+                                          

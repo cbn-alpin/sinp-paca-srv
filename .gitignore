@@ -1,0 +1,4 @@
+*.conf
+!.sample.conf
+.env*
+!.env.sample

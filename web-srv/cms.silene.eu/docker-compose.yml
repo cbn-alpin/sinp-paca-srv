@@ -1,0 +1,115 @@
+version: "3.7"
+
+services:
+
+  cms-nginx:
+    image: nginx:1.16.1
+    # https://hub.docker.com/_/nginx
+    container_name: cms-nginx
+    restart: unless-stopped
+    expose:
+      - 80
+    depends_on:
+      - cms-wordpress
+    #environment:
+    #  VIRTUAL_HOST: amandine-cuir.com
+    #  LETSENCRYPT_HOST: amandine-cuir.com
+    volumes:
+      - wordpress-storage:/var/www/html
+      - ./nginx/app.conf:/etc/nginx/conf.d/default.conf:ro
+
+  cms-wordpress:
+    image: wordpress:5.3.2-php7.3-fpm
+    # https://hub.docker.com/_/wordpress
+    container_name: cms-wordpress
+    restart: unless-stopped
+    env_file: .env
+    expose:
+      - 9000
+    depends_on:
+      - amandine-cuir-database
+    environment:
+      WORDPRESS_DB_HOST: amandine-cuir-database:3306
+      WORDPRESS_DB_USER: ${MYSQL_USER}
+      WORDPRESS_DB_PASSWORD: ${MYSQL_PASSWORD}
+      WORDPRESS_DB_NAME: amandine_cuir
+      WORDPRESS_TABLE_PREFIX: ac_
+    volumes:
+      - wordpress-storage:/var/www/html
+      #- ./wp-content:/var/www/html/wp-content
+      #- ./test:/var/www/html/test
+
+  cms-mariadb:
+    image: mariadb:10.2.30
+    # https://hub.docker.com/_/mariadb
+    container_name: cms-mariadb
+    restart: unless-stopped
+    env_file: .env
+    expose:
+      - 3306
+    environment:
+      MYSQL_DATABASE: amandine_cuir
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      # See : https://github.com/docker-library/mariadb/issues/160
+      MYSQL_INITDB_SKIP_TZINFO: "yes"
+    volumes:
+      - db-storage:/var/lib/mysql
+      #- ./database/initdb.d/:/docker-entrypoint-initdb.d/
+
+  cms-adminer:
+    image: adminer:4.7.5-standalone
+    # https://hub.docker.com/_/adminer
+    container_name: cms-adminer
+    restart: unless-stopped
+    expose:
+      - 8080
+    depends_on:
+      - cms-mariadb
+    environment:
+      #VIRTUAL_HOST: adminer.amandine-cuir.com
+      #LETSENCRYPT_HOST: adminer.amandine-cuir.com
+      ADMINER_DESIGN: lucas-sandery
+      ADMINER_DEFAULT_SERVER: cms-mariadb
+
+ cms-backup:
+      image: blacklabelops/volumerize:1.5.1
+      # https://hub.docker.com/r/blacklabelops/volumerize/tags
+      container_name: cms-backup
+      restart: unless-stopped
+      environment:
+        # Stop containers before backup
+        - VOLUMERIZE_CONTAINERS=amandine-cuir-database amandine-cuir-cms
+        # Backup on Host
+        - VOLUMERIZE_SOURCE1=/source
+        - VOLUMERIZE_TARGET1=file:///backup
+        - VOLUMERIZE_CACHE1=/volumerize-cache
+        # Backup on Freebox
+        #- VOLUMERIZE_SOURCE2=/source
+        #- VOLUMERIZE_TARGET2=sftp://
+        #- VOLUMERIZE_CACHE2=/volumerize-cache
+        # Schedule backup
+        - TZ=Europe/Paris
+        - VOLUMERIZE_JOBBER_TIME=0 20 * * * *
+        - VOLUMERIZE_FULL_IF_OLDER_THAN=7D
+        - VOLUMERIZE_DUPLICITY_OPTIONS=--dry-run
+        # Remove old backups
+        - JOB_NAME2=RemoveOldBackups
+        - JOB_COMMAND2=/etc/volumerize/remove-older-than 7D --force
+        - JOB_TIME2=0 0 * * * *
+      volumes:
+        - /var/run/docker.sock:/var/run/docker.sock
+        - ./backup/:/backup
+        - backup-cache-storage:/volumerize-cache
+        - wordpress-storage:/source/amandine-cuir-cms:ro
+        - db-storage:/source/amandine-cuir-database:ro
+
+volumes:
+  wordpress-storage:
+  db-storage:
+
+networks:
+  default:
+    external:
+      name: nginx-proxy

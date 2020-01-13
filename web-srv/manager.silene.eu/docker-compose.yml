@@ -1,0 +1,29 @@
+version: "3.7"
+
+services:
+  manager-portainer:
+    image: portainer/portainer:1.23.0
+    container_name: "manager-portainer"
+    restart: unless-stopped
+    expose:
+      - 8000
+    ports:
+      - "127.0.0.1:9000:9000"
+    hostname: ${HOSTNAME}
+    #environment:
+      #VIRTUAL_HOST: manager.silene.eu
+      #VIRTUAL_PORT: 9000
+      #LETSENCRYPT_HOST: manager.silene.eu
+    command: --admin-password ${ENCRYPTED_PASSWORD}
+    command: -H unix:///var/run/docker.sock
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer-storage:/data
+
+volumes:
+  portainer-storage:
+
+networks:
+  default:
+    external:
+      name: ${NETWORK}

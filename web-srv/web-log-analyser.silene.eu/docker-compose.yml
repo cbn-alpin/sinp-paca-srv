@@ -23,18 +23,13 @@ services:
       - "127.0.0.1:57890:7890"
     volumes:
       - ./goaccess/goaccess.conf:/goaccess/goaccess.conf
-      #- ./goaccess/goaccess.conf:/etc/goaccess/goaccess.conf
+      - ./goaccess/goaccess.cli.conf:/goaccess/goaccess.cli.conf
       - /var/log/nginx:/goaccess/logs:ro
       - report-storage:/goaccess/reports:rw
     environment:
       LANG: fr
       TZ: "Europe/Paris"
-    #command: sh -c "zcat /goaccess/logs/access.log.2.gz 2>&1 | goaccess --config-file=/goaccess/goaccess.conf -"
-    #command: sh -c "zcat /goaccess/logs/access.log.2.gz 2>&1 | goaccess -"
-    #command: sh -c "zcat -f /goaccess/logs/access.log.2.gz | goaccess"
-    #command: ./goaccess.sh
-    command: goaccess --config-file=/goaccess/goaccess.conf
-    #command: ls -al /goaccess/logs
+    entrypoint: sh -c "zcat -f /goaccess/logs/access.log.* /goaccess/logs/access.log.*.gz | goaccess --config-file=/goaccess/goaccess.conf -"
 
 volumes:
   report-storage:

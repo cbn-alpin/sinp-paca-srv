@@ -1,0 +1,9 @@
+# /etc/cron.d/goaccess-reports: crontab entries for the goaccess-reports script
+# Copy this file into /etc/cron.d/ without .cron extension : cp goaccess-reports.cron /etc/cron.d/goaccess-reports
+
+SHELL=/bin/sh
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+
+0 3 * * * admin /otp/goaccess-reports/daily-report
+0 4 * * 1 admin /otp/goaccess-reports/weekly-report
+0 5 1 * * admin /otp/goaccess-reports/monthly-report

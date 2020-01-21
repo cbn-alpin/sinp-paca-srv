@@ -1,0 +1,12 @@
+#!/bin/bash
+# Monthly report
+# Run with cron.d (at 05:00 all first day of each month) with : 0 5 1 * * admin /otp/goaccess-reports/monthly-report
+
+YEAR=`date -d "yesterday 13:00" '+%Y'`
+MONTH=`date -d "yesterday 13:00" '+%m'`
+
+# Create directories structure
+docker exec -it web-log-analyser-goaccess mkdir -p /goaccess/reports/${YEAR}/${MONTH}/
+
+# Generate report
+docker exec -it web-log-analyser-goaccess sh -c "zcat -f /goaccess/logs/access.log.${YEAR}-${MONTH}-*.gz /goaccess/logs/access.log.${YEAR}-${MONTH}-* | goaccess --config-file=/goaccess/goaccess.cli.conf --output=/goaccess/reports/${YEAR}/${MONTH}/index.html -"

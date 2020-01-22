@@ -17,19 +17,31 @@ DATE7=`date -d "$DATE -7 days" '+%Y-%m-%d'`
 # Create directories structure
 docker exec -it web-log-analyser-goaccess mkdir -p /goaccess/reports/${YEAR}/weeks/${WEEK}/
 
-# Generate report
-#docker exec -it web-log-analyser-goaccess sh -c "zcat -f `find /goaccess/logs/ -name "access.log.*.gz" -mtime -7` | goaccess --log-file=/goaccess/logs/access.log.${YEAR}-${MONTH}-${D1} --config-file=/goaccess/goaccess.cli.conf --output=/goaccess/reports/${YEAR}/weeks/${WEEK}/index.html -"
-
 # Test yesterday gzip file or not
+isGz="false"
 yesterdayFile="/goaccess/logs/access.log.${DATE1}"
-result=`docker exec -it web-log-analyser-goaccess sh -c "test -f '${yesterdayFile}.gz' && echo 'pass' || echo 'fail'"`
+result=`docker exec -it web-log-analyser-goaccess sh -c \
+	"test -f '${yesterdayFile}.gz' && echo 'pass' || echo 'fail'"`
 if [ "${result//[$'\r\n']}" = 'pass' ]; then
     yesterdayFile="${yesterdayFile}.gz"
+	isGz="true"
 fi
 
 # Get last week gzip files
-gzFiles=`docker exec -it web-log-analyser-goaccess sh -c "find /goaccess/logs/access.log.*.gz -newer /goaccess/logs/access.log.${DATE7}.gz -not -newer /goaccess/logs/access.log.${DATE2}.gz"`
+gzFiles=`docker exec -it web-log-analyser-goaccess sh -c \
+	"find /goaccess/logs/access.log.*.gz \
+		-newer /goaccess/logs/access.log.${DATE7}.gz \
+		-not -newer /goaccess/logs/access.log.${DATE2}.gz"`
 #echo "${gzFiles//[$'\t\r\n']/ }"
 
 # Generate report
-docker exec -it web-log-analyser-goaccess sh -c "zcat -f ${yesterdayFile} ${gzFiles//[$'\t\r\n']/ } | goaccess --config-file=/goaccess/goaccess.cli.conf --output=/goaccess/reports/${YEAR}/weeks/${WEEK}/index.html -"
+if [ "$isGz" = 'true' ]; then
+	docker exec -it web-log-analyser-goaccess sh -c "zcat ${yesterdayFile} ${gzFiles//[$'\t\r\n']/ } | \
+		goaccess --config-file=/goaccess/goaccess.cli.conf \
+			--output=/goaccess/reports/${YEAR}/weeks/${WEEK}/index.html -"
+else
+	docker exec -it web-log-analyser-goaccess sh -c "zcat ${gzFiles//[$'\t\r\n']/ } | \
+		goaccess --config-file=/goaccess/goaccess.cli.conf \
+			--log-file=${yesterdayFile} \
+			--output=/goaccess/reports/${YEAR}/weeks/${WEEK}/index.html -"
+fi

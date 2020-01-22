@@ -1,12 +1,45 @@
 #!/bin/bash
 # Monthly report
-# Run with cron.d (at 05:00 all first day of each month) with : 0 5 1 * * admin /otp/goaccess-reports/monthly-report
+# Parameter : date (format: '%Y-%m-%d) of a day in past month to parse for the report (default : today)
+# Run with cron.d :
+# at 05:00 all first day of each month with : 0 5 1 * * admin /otp/goaccess-reports/monthly-report
+# or
+# at 05:00 each day to generate current month report : 0 5 * * * admin /otp/goaccess-reports/monthly-report
+DATE="today"
+if [ -n "$1" ]; then # If first parameter passed
+    DATE=`date -d "$1" '+%Y-%m-%d'`
+fi
+YEAR=`date -d "$DATE" '+%Y'`
+MONTH=`date -d "$DATE" '+%m'`
+TODAY=`date -d "today" '+%Y-%m-%d'`
 
-YEAR=`date -d "yesterday 13:00" '+%Y'`
-MONTH=`date -d "yesterday 13:00" '+%m'`
+# Check date is today
+todayLogFile=""
+if [ $DATE = $TODAY ]; then
+	todayLogFile="--log-file=/goaccess/logs/access.log"
+fi
 
 # Create directories structure
 docker exec -it web-log-analyser-goaccess mkdir -p /goaccess/reports/${YEAR}/${MONTH}/
 
+# Get not gzip files
+notGzFiles=`docker exec -it web-log-analyser-goaccess sh -c \
+	"find /goaccess/logs/access.log.${YEAR}-${MONTH}-* \
+		-regex '.*${YEAR}-${MONTH}-[0-3][0-9]$'"`
+#echo "${notGzFiles//[$'\t\r\n']/ }"
+
 # Generate report
-docker exec -it web-log-analyser-goaccess sh -c "zcat -f /goaccess/logs/access.log.${YEAR}-${MONTH}-*.gz /goaccess/logs/access.log.${YEAR}-${MONTH}-* | goaccess --config-file=/goaccess/goaccess.cli.conf --output=/goaccess/reports/${YEAR}/${MONTH}/index.html -"
+if [ -z $notGzFiles ]; then
+	docker exec -it web-log-analyser-goaccess sh -c \
+		"zcat /goaccess/logs/access.log.${YEAR}-${MONTH}-*.gz | \
+			goaccess --config-file=/goaccess/goaccess.cli.conf \
+				${todayLogFile} \
+				--output=/goaccess/reports/${YEAR}/${MONTH}/index.html -"
+else
+	docker exec -it web-log-analyser-goaccess sh -c \
+		"zcat /goaccess/logs/access.log.${YEAR}-${MONTH}-*.gz | \
+			goaccess --config-file=/goaccess/goaccess.cli.conf \
+			    --log-file=${notGzFiles//[$'\t\r\n']/ } \
+				${todayLogFile} \
+				--output=/goaccess/reports/${YEAR}/${MONTH}/index.html -"
+fi

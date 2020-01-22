@@ -6,4 +6,4 @@ PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 
 0 3 * * * admin /otp/goaccess-reports/daily-report
 0 4 * * 1 admin /otp/goaccess-reports/weekly-report
-0 5 1 * * admin /otp/goaccess-reports/monthly-report
+0 5 * * * admin /otp/goaccess-reports/monthly-report

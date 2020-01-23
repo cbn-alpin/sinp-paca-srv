@@ -1,27 +1,21 @@
-# docker-paca-sinp
-Scripts docker-compose du SINP PACA.
+# sinp-paca-srv
+Contient les scripts utilisés pour la mise en place des serveurs du SINP PACA.
+Scripts : nginx, docker, bash...
 
-## Docker installation
+## Documentation de l'installation des serveurs
+Voir la documentation sur le Wiki SINP du CBNA : https://sinp-wiki.cbn-alpin.fr
 
-### Préparation
-Nous utiliserons un dossier nommé *docker* dans le *home* de l'utilisateur *admin*.
-
-### Synchronisation avec le serveur
+## Synchronisation locale vers serveur
 
 Pour synchroniser ces fichiers avec le serveur utiliser `rsync` :
- - Se placer dans le dossier contenant les fichiers Docker pour l'instance désirée. Ex. : *web-srv*
- - Lancer la commande `rsync` suivante, ici pour *web-srv* :
+ - Se placer à la racine du dépôt
+ - Lancer la commande `rsync` suivante, ici pour *web-srv* et le dossier *docker* :
 
 ```shell
-rsync -av --delete-excluded \
-  --exclude='/.git' \
-  --exclude='/.gitignore'  \
-  --exclude='/.editorconfig' \
-  ./ \
-  admin@web-paca-sinp:/home/admin/docker/
- ```
+rsync -av ./web-srv/docker/ admin@web-paca-sinp:/home/admin/docker/
+```
 
-## Docker images
+## Commandes utiles avec les images Docker
 
 ### InfluxDb
 #### Récupérer le fichier de configuration par défaut

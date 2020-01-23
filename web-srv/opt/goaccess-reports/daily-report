@@ -11,12 +11,12 @@ MONTH=`date -d "$DATE 13:00" '+%m'`
 DAY=`date -d "$DATE 13:00" '+%d'`
 
 # Create directories structure
-docker exec -it web-log-analyser-goaccess mkdir -p /goaccess/reports/${YEAR}/${MONTH}/$DAY/
+docker exec web-log-analyser-goaccess mkdir -p /goaccess/reports/${YEAR}/${MONTH}/$DAY/
 
 # Test gzip file or not
 isGz="false"
 file="/goaccess/logs/access.log.${YEAR}-${MONTH}-${DAY}"
-result=`docker exec -it web-log-analyser-goaccess sh -c "test -f '${file}.gz' && echo 'pass' || echo 'fail'"`
+result=`docker exec web-log-analyser-goaccess sh -c "test -f '${file}.gz' && echo 'pass' || echo 'fail'"`
 if [ "${result//[$'\r\n']}" = 'pass' ]; then
     file="${file}.gz"
     isGz="true"
@@ -24,7 +24,7 @@ fi
 
 # Generate report
 if [ "$isGz" = 'true' ]; then
-    docker exec -it web-log-analyser-goaccess sh -c "zcat $file | goaccess --config-file=/goaccess/goaccess.cli.conf --output=/goaccess/reports/${YEAR}/${MONTH}/${DAY}/index.html"
+    docker exec web-log-analyser-goaccess sh -c "zcat $file | goaccess --config-file=/goaccess/goaccess.cli.conf --output=/goaccess/reports/${YEAR}/${MONTH}/${DAY}/index.html"
 else
-    docker exec -it web-log-analyser-goaccess sh -c "goaccess --log-file=$file --config-file=/goaccess/goaccess.cli.conf --output=/goaccess/reports/${YEAR}/${MONTH}/${DAY}/index.html"
+    docker exec web-log-analyser-goaccess sh -c "goaccess --log-file=$file --config-file=/goaccess/goaccess.cli.conf --output=/goaccess/reports/${YEAR}/${MONTH}/${DAY}/index.html"
 fi

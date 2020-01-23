@@ -20,23 +20,23 @@ if [ $DATE = $TODAY ]; then
 fi
 
 # Create directories structure
-docker exec -it web-log-analyser-goaccess mkdir -p /goaccess/reports/${YEAR}/${MONTH}/
+docker exec web-log-analyser-goaccess mkdir -p /goaccess/reports/${YEAR}/${MONTH}/
 
 # Get not gzip files
-notGzFiles=`docker exec -it web-log-analyser-goaccess sh -c \
+notGzFiles=`docker exec web-log-analyser-goaccess sh -c \
 	"find /goaccess/logs/access.log.${YEAR}-${MONTH}-* \
 		-regex '.*${YEAR}-${MONTH}-[0-3][0-9]$'"`
 #echo "${notGzFiles//[$'\t\r\n']/ }"
 
 # Generate report
 if [ -z $notGzFiles ]; then
-	docker exec -it web-log-analyser-goaccess sh -c \
+	docker exec web-log-analyser-goaccess sh -c \
 		"zcat /goaccess/logs/access.log.${YEAR}-${MONTH}-*.gz | \
 			goaccess --config-file=/goaccess/goaccess.cli.conf \
 				${todayLogFile} \
 				--output=/goaccess/reports/${YEAR}/${MONTH}/index.html -"
 else
-	docker exec -it web-log-analyser-goaccess sh -c \
+	docker exec web-log-analyser-goaccess sh -c \
 		"zcat /goaccess/logs/access.log.${YEAR}-${MONTH}-*.gz | \
 			goaccess --config-file=/goaccess/goaccess.cli.conf \
 			    --log-file=${notGzFiles//[$'\t\r\n']/ } \

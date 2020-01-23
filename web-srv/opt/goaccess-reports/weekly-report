@@ -15,12 +15,12 @@ DATE2=`date -d "$DATE -2 days" '+%Y-%m-%d'`
 DATE7=`date -d "$DATE -7 days" '+%Y-%m-%d'`
 
 # Create directories structure
-docker exec -it web-log-analyser-goaccess mkdir -p /goaccess/reports/${YEAR}/weeks/${WEEK}/
+docker exec web-log-analyser-goaccess mkdir -p /goaccess/reports/${YEAR}/weeks/${WEEK}/
 
 # Test yesterday gzip file or not
 isGz="false"
 yesterdayFile="/goaccess/logs/access.log.${DATE1}"
-result=`docker exec -it web-log-analyser-goaccess sh -c \
+result=`docker exec web-log-analyser-goaccess sh -c \
 	"test -f '${yesterdayFile}.gz' && echo 'pass' || echo 'fail'"`
 if [ "${result//[$'\r\n']}" = 'pass' ]; then
     yesterdayFile="${yesterdayFile}.gz"
@@ -28,7 +28,7 @@ if [ "${result//[$'\r\n']}" = 'pass' ]; then
 fi
 
 # Get last week gzip files
-gzFiles=`docker exec -it web-log-analyser-goaccess sh -c \
+gzFiles=`docker exec web-log-analyser-goaccess sh -c \
 	"find /goaccess/logs/access.log.*.gz \
 		-newer /goaccess/logs/access.log.${DATE7}.gz \
 		-not -newer /goaccess/logs/access.log.${DATE2}.gz"`
@@ -36,11 +36,11 @@ gzFiles=`docker exec -it web-log-analyser-goaccess sh -c \
 
 # Generate report
 if [ "$isGz" = 'true' ]; then
-	docker exec -it web-log-analyser-goaccess sh -c "zcat ${yesterdayFile} ${gzFiles//[$'\t\r\n']/ } | \
+	docker exec web-log-analyser-goaccess sh -c "zcat ${yesterdayFile} ${gzFiles//[$'\t\r\n']/ } | \
 		goaccess --config-file=/goaccess/goaccess.cli.conf \
 			--output=/goaccess/reports/${YEAR}/weeks/${WEEK}/index.html -"
 else
-	docker exec -it web-log-analyser-goaccess sh -c "zcat ${gzFiles//[$'\t\r\n']/ } | \
+	docker exec web-log-analyser-goaccess sh -c "zcat ${gzFiles//[$'\t\r\n']/ } | \
 		goaccess --config-file=/goaccess/goaccess.cli.conf \
 			--log-file=${yesterdayFile} \
 			--output=/goaccess/reports/${YEAR}/weeks/${WEEK}/index.html -"

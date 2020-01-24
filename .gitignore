@@ -1,6 +1,6 @@
 *.conf
 !*.sample.conf
 !*.default.conf
-!web-srv/host-nginx/*.conf
+!web-srv/etc/**/*.conf
 .env*
 !.env.sample

@@ -7,10 +7,10 @@
 # at 05:00 each day to generate current month report : 0 5 * * * admin /otp/goaccess-reports/monthly-report
 DATE="today"
 if [ -n "$1" ]; then # If first parameter passed
-    DATE=`date -d "$1" '+%Y-%m-%d'`
+    DATE=`date -d "$1 -1 day" '+%Y-%m-%d'`
 fi
-YEAR=`date -d "$DATE" '+%Y'`
-MONTH=`date -d "$DATE" '+%m'`
+YEAR=`date -d "$DATE -1 day" '+%Y'`
+MONTH=`date -d "$DATE -1 day" '+%m'`
 TODAY=`date -d "today" '+%Y-%m-%d'`
 
 # Check date is today
@@ -28,7 +28,11 @@ notGzFiles=`docker exec web-log-analyser-goaccess sh -c \
 		-regex '.*${YEAR}-${MONTH}-[0-3][0-9]$'"`
 #echo "${notGzFiles//[$'\t\r\n']/ }"
 
+# Print URL 
+echo "See report: https://web-log-analyser.silene.eu/${YEAR}/${MONTH}/index.html"
+
 # Generate report
+echo "Log parsing:"
 if [ -z $notGzFiles ]; then
 	docker exec web-log-analyser-goaccess sh -c \
 		"zcat /goaccess/logs/access.log.${YEAR}-${MONTH}-*.gz | \

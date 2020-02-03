@@ -34,7 +34,11 @@ gzFiles=`docker exec web-log-analyser-goaccess sh -c \
 		-not -newer /goaccess/logs/access.log.${DATE2}.gz"`
 #echo "${gzFiles//[$'\t\r\n']/ }"
 
+# Print URL 
+echo "See report: https://web-log-analyser.silene.eu/${YEAR}/weeks/${WEEK}/index.html"
+
 # Generate report
+echo "Log parsing:"
 if [ "$isGz" = 'true' ]; then
 	docker exec web-log-analyser-goaccess sh -c "zcat ${yesterdayFile} ${gzFiles//[$'\t\r\n']/ } | \
 		goaccess --config-file=/goaccess/goaccess.cli.conf \

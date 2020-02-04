@@ -1,0 +1,66 @@
+version: "3.7"
+
+services:
+    analytics-nginx:
+        image: nginx:1.16.1
+        # https://hub.docker.com/_/nginx
+        container_name: analytics-nginx
+        restart: unless-stopped
+        ports:
+          - "127.0.0.1:50083:80"
+        depends_on:
+          - analytics-matomo
+        volumes:
+          - ./nginx/app.conf:/etc/nginx/conf.d/default.conf:ro
+          - matomo-storage:/var/www/html
+
+    analytics-matomo:
+        image: matomo:3.13.1-fpm
+        # https://hub.docker.com/_/matomo
+        container_name: analytics-matomo
+        restart: unless-stopped
+        depends_on:
+            - analytics-mariadb
+        expose:
+          - 9000
+        env_file: .env
+        environment:
+            - MATOMO_DATABASE_HOST=analytics-mariadb
+            - MATOMO_DATABASE_ADAPTER=${MATOMO_DATABASE_ADAPTER}
+            - MATOMO_DATABASE_TABLES_PREFIX=${MATOMO_DATABASE_TABLES_PREFIX}
+            - MATOMO_DATABASE_USERNAME=${MYSQL_USER}
+            - MATOMO_DATABASE_PASSWORD=${MYSQL_PASSWORD}
+            - MATOMO_DATABASE_DBNAME=${MYSQL_DATABASE}
+        volumes:
+            # - ./config:/var/www/html/config:rw
+            # - ./logs:/var/www/html/logs
+            - matomo-storage:/var/www/html
+                
+    analytics-mariadb:
+        image: mariadb:10.4.12
+        # https://hub.docker.com/_/mariadb
+        container_name: analytics-mariadb
+        restart: unless-stopped
+        expose:
+          - 3306
+        env_file: .env
+        environment:
+          MYSQL_DATABASE: ${MYSQL_DATABASE}
+          MYSQL_USER: ${MYSQL_USER}
+          MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+          MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+          # See : https://github.com/docker-library/mariadb/issues/160
+          MYSQL_INITDB_SKIP_TZINFO: "yes"
+        volumes:
+          - db-storage:/var/lib/mysql
+          #- ./database/initdb.d/:/docker-entrypoint-initdb.d/
+
+volumes:
+    db-storage:
+    matomo-storage:
+
+networks:
+  default:
+    external:
+      name: nginx-proxy
+          

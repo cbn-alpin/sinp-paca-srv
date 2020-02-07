@@ -3,6 +3,7 @@ version: "3.7"
 services:
   monitor-influxdb:
     image: influxdb:1.7.9
+    # https://hub.docker.com/_/influxdb
     container_name: monitor-influxdb
     restart: unless-stopped
     ports:
@@ -17,7 +18,8 @@ services:
       - influxdb-storage:/var/lib/influxdb/data
 
   monitor-telegraf:
-    image: telegraf:1.13.0
+    image: telegraf:1.13.2
+    # https://hub.docker.com/_/telegraf
     container_name: monitor-telegraf
     restart: unless-stopped
     depends_on:
@@ -42,7 +44,8 @@ services:
       - /opt/srvstatus/status.json:/opt/srvstatus/status.json
 
   monitor-grafana:
-    image: grafana/grafana:6.5.2
+    image: grafana/grafana:6.6.1
+    # https://hub.docker.com/r/grafana/grafana
     container_name: monitor-grafana
     restart: unless-stopped
     ports:
@@ -60,6 +63,21 @@ services:
     volumes:
         - grafana-storage:/var/lib/grafana
     
+  monitor-grafana-backup:
+    image: ysde/docker-grafana-backup-tool:latest
+    # https://hub.docker.com/r/ysde/docker-grafana-backup-tool
+    container_name: monitor-grafana-backup
+    restart: "no"
+    depends_on:
+      - monitor-grafana
+    networks:
+      - nginx-proxy
+    environment:
+      - GRAFANA_TOKEN=${GRAFANA_TOKEN}
+      - GRAFANA_URL=http://monitor-grafana:3000
+    volumes:
+       - ./grafana/backup:/opt/grafana-backup-tool/_OUTPUT_
+
 volumes:
   grafana-storage:
   influxdb-storage:

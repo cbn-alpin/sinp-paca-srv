@@ -25,7 +25,7 @@ docker run --rm influxdb:1.7.9 influxd config > web-srv/monitor.silene.eu/influx
 ```
 
 ### Telegraf
-#### Récupérer le fichier de configuration par défaut
+#### Récupérer le fichier de configuration par défaut
 
 ```shell
 docker run --rm telegraf:1.13.0 telegraf config | \

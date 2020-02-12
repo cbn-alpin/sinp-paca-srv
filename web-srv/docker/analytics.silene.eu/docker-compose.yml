@@ -15,7 +15,7 @@ services:
           - matomo-storage:/var/www/html
 
     analytics-matomo:
-        image: matomo:3.13.1-fpm
+        image: matomo:3.13.2-fpm
         # https://hub.docker.com/_/matomo
         container_name: analytics-matomo
         restart: unless-stopped
@@ -35,7 +35,7 @@ services:
             # - ./config:/var/www/html/config:rw
             # - ./logs:/var/www/html/logs
             - matomo-storage:/var/www/html
-                
+
     analytics-mariadb:
         image: mariadb:10.4.12
         # https://hub.docker.com/_/mariadb
@@ -63,4 +63,3 @@ networks:
   default:
     external:
       name: nginx-proxy
-          

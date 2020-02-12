@@ -32,8 +32,8 @@ services:
             - MATOMO_DATABASE_PASSWORD=${MYSQL_PASSWORD}
             - MATOMO_DATABASE_DBNAME=${MYSQL_DATABASE}
         volumes:
-            # - ./config:/var/www/html/config:rw
             # - ./logs:/var/www/html/logs
+            #- ./matomo/config/config.ini.php:/var/www/html/config/config.ini.php:rw
             - matomo-storage:/var/www/html
 
     analytics-mariadb:
@@ -52,8 +52,9 @@ services:
           # See : https://github.com/docker-library/mariadb/issues/160
           MYSQL_INITDB_SKIP_TZINFO: "yes"
         volumes:
+          - ./mariadb/my.override.cnf:/etc/mysql/conf.d/matomo.cnf
           - db-storage:/var/lib/mysql
-          #- ./database/initdb.d/:/docker-entrypoint-initdb.d/
+          #- ./mariadb/initdb.d/:/docker-entrypoint-initdb.d/
 
 volumes:
     db-storage:

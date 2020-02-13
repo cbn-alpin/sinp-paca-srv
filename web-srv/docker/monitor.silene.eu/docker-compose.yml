@@ -40,7 +40,6 @@ services:
       - ./telegraf/telegraf.conf:/etc/telegraf/telegraf.conf:ro
       - /:/host:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      #- /var/log/nginx:/var/log/nginx
       - /opt/srvstatus/status.json:/opt/srvstatus/status.json
 
   monitor-grafana:
@@ -56,13 +55,9 @@ services:
       - monitor-influxdb
     networks:
       - nginx-proxy
-    #environment:
-      #VIRTUAL_HOST: monitor.silene.eu
-      #VIRTUAL_PORT: 3000
-      #LETSENCRYPT_HOST: monitor.silene.eu
     volumes:
         - grafana-storage:/var/lib/grafana
-    
+
   monitor-grafana-backup:
     image: ysde/docker-grafana-backup-tool:latest
     # https://hub.docker.com/r/ysde/docker-grafana-backup-tool
@@ -81,8 +76,8 @@ services:
 volumes:
   grafana-storage:
   influxdb-storage:
-    
+
 networks:
   nginx-proxy:
     external: true
-                                          
+

@@ -1,0 +1,26 @@
+# Run in local for theme development
+#
+# WARNING before using :
+#  1. Create a symbolic link ./wordpress/theme to local theme workspace directory
+#  2. Check your UID and GID with `id` command. If not 1000 update WP_DEV_FPM_USER in .env file if needed
+# How to use : `docker-compose -f docker-compose.yml -f docker-compose.dev.yml up`
+
+version: "3.7"
+
+services:
+  cms-nginx:
+    hostname: cms-nginx
+    volumes:
+      - "${WP_DEV_THEME_PATH:-./wordpress/theme}:/var/www/html/wp-content/themes/${WP_DEV_THEME_NAME:-silene}:ro"
+    command: [nginx-debug, '-g', 'daemon off;']
+
+  cms-wordpress:
+    hostname: cms-wordpress
+    user: ${WP_DEV_FPM_USER:-1000:1000}
+    environment:
+      WORDPRESS_DEBUG: "true"
+    volumes:
+      - "${WP_DEV_THEME_PATH:-./wordpress/theme}:/var/www/html/wp-content/themes/${WP_DEV_THEME_NAME:-silene}:ro"
+
+  cms-volumerize:
+    restart: "no"

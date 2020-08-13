@@ -1,0 +1,58 @@
+/* GÉNÉRAL */
+:root {
+	--green: #99B931;
+	--blue: #30a5ff;
+	--cyan: #1ebfae;
+	--orange: #ffb53e;
+	--cyan: #30a5ff;
+	--red: red;
+	--main-color: #A10D59;
+	--second-color: #99B931;
+}
+a {
+	color: #A10D59;
+}
+a:hover {
+	color: #99B931;
+}
+a.btn.btn-default:hover{
+	background-color: #EFE0E9 !important;
+}
+
+/* NAVBAR */
+.navbar {
+	background: #323233 !important;
+	border-bottom-color: #A10D59;
+}
+.navbar-brand {
+	color: white !important;
+    /*font-family: 'Baloo Bhaina', cursive;*/
+}
+
+/* SIDEBAR */
+.sidebar {
+	background: #323233 !important;
+}
+#sidebar_menu li:hover {
+	background-color: #A10D59;
+}
+
+/* INTRODUCTION */
+.textIntroduction h1 {
+    /*font-family: 'Arima Madurai', cursive;*/
+    color: #A10D59;
+	line-height: 40px;
+}
+
+/* FICHE ESPECE */
+
+/* Infobulles graphiques */
+.morris-hover-point {
+	color: #A10D59 !important;
+}
+.glossarizer_replaced {
+	color: #A10D59;
+}
+.affix {
+    top: 60px; /* Set the top position of pinned element */
+}

@@ -1,0 +1,17 @@
+/* GÉNÉRAL */
+:root {
+	--primary: #A10D59;
+	--secondary: #99B931;
+}
+
+:host ::ng-deep {
+	a {
+		color: #A10D59;
+	}
+	a:hover {
+		color: #99B931;
+	}
+	a.btn.btn-default:hover{
+		background-color: #EFE0E9 !important;
+	}
+}

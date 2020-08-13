@@ -1,0 +1,171 @@
+###############################################################################
+# NOTES : après toute modification dans ce fichier, il est nécessaire de
+#         mettre à jour GeoNature à l'aide de la commande :
+#         'geonature update_configuration'
+###############################################################################
+
+
+#############################################
+# GeoNature backend global configuration file
+#############################################
+
+# Database
+SQLALCHEMY_DATABASE_URI = "postgresql://<user>:<password>@10.0.1.20:5432/geonature2db"
+URL_APPLICATION = 'https://expert.silene.eu'
+API_ENDPOINT = 'https://expert.silene.eu/api'
+API_TAXHUB = 'https://taxhub.silene.eu/api'
+
+# Remplacer par une clé alétoire complexe
+SECRET_KEY = '<secret-key>'
+
+# Code EPSG des geométries dans la BDD
+LOCAL_SRID = '2154'
+
+# Langue principale par défaut
+DEFAULT_LANGUAGE='fr'
+
+# Enable logging email error (must fill the mail config section bellow if true)
+MAIL_ON_ERROR = true
+
+# Nom de l'application dans la page d'accueil.
+appName = "Silene - Expert"
+
+#######################################################################################
+###### Si vous souhaitez surcoucher certains paramètres,
+###### compléter les sections ci-dessous à partir du modèle default_config.toml.example
+#######################################################################################
+
+# Configuration liée aux ID de BDD
+[BDD]
+
+# Configuration de l'envoie d'emails
+[MAIL_CONFIG]
+    MAIL_SERVER = 'smtp-relay.gmail.com'
+    MAIL_PORT = 587
+    MAIL_USE_TLS = true
+    MAIL_USE_SSL = false
+    MAIL_USERNAME = '<email-username>'
+    MAIL_PASSWORD = '<email-password>'
+    MAIL_DEFAULT_SENDER = '<email-default-sender>'
+    MAIL_ASCII_ATTACHMENTS = false
+    # email(s) to the administrator for the email logging
+    ERROR_MAIL_TO = ["<email-error>"]
+
+# Configuration de l'accès distant à UsersHub (API)
+[USERSHUB]
+    URL_USERSHUB = 'https://usershub.silene.eu' # sans slash final
+    # Administrateur de mon application
+    ADMIN_APPLICATION_LOGIN = "<user-admin-login>"
+    ADMIN_APPLICATION_PASSWORD = "<user-admin-password>"
+
+# Gestion des demandes d'inscription
+[ACCOUNT_MANAGEMENT]
+    ENABLE_SIGN_UP = true
+    AUTO_ACCOUNT_CREATION = false
+    VALIDATOR_EMAIL = '<email-validator>'
+    AUTO_DATASET_CREATION = false
+    ENABLE_USER_MANAGEMENT = true
+
+    # Gestion du formulaire de demande d'inscription
+    [[ACCOUNT_MANAGEMENT.ACCOUNT_FORM]]
+        type_widget = "checkbox"
+        attribut_label = "<a target='_blank' href='http://docs.geonature.fr'>J'ai lu et j'accepte la charte</a>"
+        attribut_name = "validate_charte"
+        values = [true]
+        required = true
+
+    [[ACCOUNT_MANAGEMENT.ACCOUNT_FORM]]
+        type_widget = "select"
+        attribut_label = "Exemple select"
+        attribut_name = "select_test"
+        values = ["valeur1", "valeur2"]
+        required = false
+
+# Configuration générale du frontend
+[FRONTEND]
+    # Affiche la carte des 100 obs sur la page d'accueil
+    DISPLAY_MAP_LAST_OBS = true
+
+	# Affiche le composant 'custom/components/footer' sur la page d'accueil
+    DISPLAY_FOOTER = true
+
+# Configuration cartographique
+[MAPCONFIG]
+    BASEMAP = [
+        {"name" = "OpenStreetMap", "layer" = "//{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png", "attribution" = "&copy OpenStreetMap"},
+        {"name"= "OpenTopoMap", "layer" = "//a.tile.opentopomap.org/{z}/{x}/{y}.png", "attribution" = "© OpenTopoMap"},
+        {"name" = "GoogleSatellite", "layer" = "//{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}", "subdomains" = ["mt0", "mt1", "mt2", "mt3"], "attribution" = "© GoogleMap"}
+    ]
+    # Attention : les coordonnées sont au format [Y, X]
+    # Cf leaflet configuration (https://leafletjs.com/reference-1.4.0.html#latlng-l-latlng)
+    CENTER = [43.96387, 6.06216]
+    # Zoom par défaut
+    ZOOM_LEVEL = 8
+    # Zoom à partir duquel on peut pointer un relevé
+    ZOOM_LEVEL_RELEVE = 15
+    # Zoom appliqué sur la carte lorsque l'on clique sur une liste
+    ZOOM_ON_CLICK = 16
+
+# Configuration de la Synthese
+[SYNTHESE]
+    # Nombre d'observation maximum à afficher sur la carte après une recherche
+    NB_MAX_OBS_MAP = 50000
+    # Nombre max d'observation dans les exports
+    NB_MAX_OBS_EXPORT = 150000
+    # Nombre des dernières observations affichées par défaut quand on arrive sur la synthese
+    NB_LAST_OBS = 3000
+    # Colonne à afficher par défaut sur la liste des résultats de la synthese
+    # Choisir le champ 'prop' parmis les colonnes suivante
+    # (id_synthese, date_min, cd_nom, lb_nom, nom_vern_or_lb_nom, st_asgeojson, observers, dataset_name, url_source)
+    LIST_COLUMNS_FRONTEND = [
+        { prop = "lb_nom", name = "Taxon" },
+        { prop = "date_min", name = "Date début" },
+        { prop = "observers", name = "Observateurs" },
+        { prop = "dataset_name", name = "Jeu de données" }
+    ]
+# Champs à afficher dans l'export
+    # Voir les noms des champs de la ``vue gn_synthese.v_synthese_for_export``
+    EXPORT_COLUMNS   = [
+        #"idSynthese",
+        "permId",
+        "permIdGrp",
+        "dateDebut",
+        "dateFin",
+        "observer",
+        "altMin",
+        "altMax",
+        "denbrMin",
+        "denbrMax",
+        #"EchanPreuv",
+        #"PreuvNum",
+        #"PreuvNoNum",
+        #"obsCtx",
+        #"obsDescr",
+        #"ObjGeoTyp",
+        #"methGrp",
+        #"obsMeth",
+        #"ocEtatBio",
+        #"ocStatBio",
+        #"ocNat",
+        #"preuveOui",
+        #"validStat",
+        #"difNivPrec",
+        #"ocStade",
+        #"ocSex",
+        #"objDenbr",
+        #"denbrTyp",
+        #"sensiNiv",
+        #"statObs",
+        #"dEEFlou",
+        #"statSource",
+        #"typInfGeo",
+        #"methDeterm",
+        "jddCode",
+        "cdNom",
+        "cdRef",
+        "nomCite",
+        "vTAXREF",
+        "wkt",
+        #"lastAction",
+        "validateur"
+    ]

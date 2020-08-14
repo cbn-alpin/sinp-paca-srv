@@ -4,9 +4,10 @@
 	--secondary: #99B931;
 }
 
+
 :host ::ng-deep {
 	a {
-		color: #A10D59;
+		color: #A10D59 !important;
 	}
 	a:hover {
 		color: #99B931;
@@ -14,4 +15,8 @@
 	a.btn.btn-default:hover{
 		background-color: #EFE0E9 !important;
 	}
+}
+
+:host ::ng-deep a:hover {
+	color: #99B931 !important;
 }

@@ -44,6 +44,14 @@ a.btn.btn-default:hover{
 	line-height: 40px;
 }
 
+/* FOOTER */
+.footer .logos .img-thumbnail {
+	margin: .25rem;
+}
+.footer .logos .img-thumbnail:hover {
+	border-color: #A10D59;
+}
+
 /* FICHE ESPECE */
 
 /* Infobulles graphiques */

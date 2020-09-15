@@ -28,16 +28,12 @@ DEFAULT_LANGUAGE='fr'
 MAIL_ON_ERROR = true
 
 # Nom de l'application dans la page d'accueil.
-appName = "Silene - Expert"
+appName = "Silene Expert"
 
 #######################################################################################
 ###### Si vous souhaitez surcoucher certains paramètres,
 ###### compléter les sections ci-dessous à partir du modèle default_config.toml.example
 #######################################################################################
-
-# Configuration liée aux ID de BDD
-[BDD]
-
 # Configuration de l'envoie d'emails
 [MAIL_CONFIG]
     MAIL_SERVER = 'smtp-relay.gmail.com'
@@ -69,7 +65,7 @@ appName = "Silene - Expert"
     # Gestion du formulaire de demande d'inscription
     [[ACCOUNT_MANAGEMENT.ACCOUNT_FORM]]
         type_widget = "checkbox"
-        attribut_label = "<a target='_blank' href='http://docs.geonature.fr'>J'ai lu et j'accepte la charte</a>"
+        attribut_label = "<a target='_blank' href='https://cms.silene.eu/charte-silene/'>J'accepte les conditions d'utilisation et la charte Silene</a>"
         attribut_name = "validate_charte"
         values = [true]
         required = true
@@ -93,7 +89,7 @@ appName = "Silene - Expert"
 [MAPCONFIG]
     BASEMAP = [
         {"name" = "OpenStreetMap", "layer" = "//{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png", "attribution" = "&copy OpenStreetMap"},
-        {"name"= "OpenTopoMap", "layer" = "//a.tile.opentopomap.org/{z}/{x}/{y}.png", "attribution" = "© OpenTopoMap"},
+        {"name" = "OpenTopoMap", "layer" = "//a.tile.opentopomap.org/{z}/{x}/{y}.png", "attribution" = "© OpenTopoMap"},
         {"name" = "GoogleSatellite", "layer" = "//{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}", "subdomains" = ["mt0", "mt1", "mt2", "mt3"], "attribution" = "© GoogleMap"}
     ]
     # Attention : les coordonnées sont au format [Y, X]
@@ -129,13 +125,19 @@ appName = "Silene - Expert"
         #"idSynthese",
         "permId",
         "permIdGrp",
-        "dateDebut",
-        "dateFin",
+        "jddCode",
+        "validStat",
+        "validateur",
         "observer",
-        "altMin",
-        "altMax",
+        "cdNom",
+        "nomCite",
         "denbrMin",
         "denbrMax",
+        "dateDebut",
+        "dateFin",
+        "wkt",
+        #"altMin",
+        #"altMax",
         #"EchanPreuv",
         #"PreuvNum",
         #"PreuvNoNum",
@@ -148,7 +150,6 @@ appName = "Silene - Expert"
         #"ocStatBio",
         #"ocNat",
         #"preuveOui",
-        #"validStat",
         #"difNivPrec",
         #"ocStade",
         #"ocSex",
@@ -160,12 +161,7 @@ appName = "Silene - Expert"
         #"statSource",
         #"typInfGeo",
         #"methDeterm",
-        "jddCode",
-        "cdNom",
-        "cdRef",
-        "nomCite",
-        "vTAXREF",
-        "wkt",
+        #"cdRef",
+        #"vTAXREF",
         #"lastAction",
-        "validateur"
     ]

@@ -18,7 +18,7 @@ database_connection = "postgresql://<user>:<password>@10.0.1.20:5432/gnatlas"
 STRUCTURE = "SINP PACA"
 
 # Nom de l'application
-NOM_APPLICATION = "SILENE - Nature"
+NOM_APPLICATION = "Silene Nature"
 
 # URL de l'application depuis la racine du domaine
 # ex "/atlas" pour une URL: http://mon-domaine/atlas OU "" si l'application est accessible à la racine du domaine
@@ -90,6 +90,16 @@ AFFICHAGE_DERNIERES_OBS = True
 AFFICHAGE_EN_CE_MOMENT = True
 
 
+############################
+####### FICHE ESPECE #######
+############################
+
+# URL de TaxHub (pour génération à la volée des vignettes des images).
+# Si le service Taxhub n'est pas utilisé, commenter la variable
+REDIMENSIONNEMENT_IMAGE = True
+# si redimmentionnement image = True, indiquer l'URL de taxhub
+TAXHUB_URL = "https://taxhub.silene.eu"
+
 #############################
 #### PAGES STATIQUES #####
 #############################
@@ -97,5 +107,6 @@ AFFICHAGE_EN_CE_MOMENT = True
 # Permet de lister les pages statiques souhaitées et de les afficher dynamiquement dans le menu sidebar
 # Les pictos se limitent au Glyphicon proposés par Bootstrap (https://getbootstrap.com/docs/3.3/components/)
 STATIC_PAGES = {
-    'presentation': {'title': "Présentation de l'atlas", 'picto': 'glyphicon-question-sign', 'order': 0, 'template': 'static/custom/templates/presentation.html'}
+    'presentation': {'title': "Présentation de Silene Nature", 'picto': 'glyphicon-question-sign', 'order': 0, 'template': 'static/custom/templates/presentation.html'}
 }
+

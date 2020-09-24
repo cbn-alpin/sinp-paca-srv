@@ -6,7 +6,16 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: 'footer.component.html'
 })
 export class FooterComponent implements OnInit {
-  constructor() {}
+	public startCopyrightYear = 2019;
+	public currentCopyrightYear;
 
-  ngOnInit() {}
+	constructor() {}
+
+  ngOnInit() {
+	this.currentCopyrightYear = this.startCopyrightYear;
+	let currentYear = (new Date()).getFullYear();
+	if (currentYear > this.startCopyrightYear) {
+		this.currentCopyrightYear = `${this.startCopyrightYear}-${currentYear}`;
+	}
+  }
 }

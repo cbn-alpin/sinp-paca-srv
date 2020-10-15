@@ -7,6 +7,7 @@ Voir la documentation sur le Wiki SINP du CBNA : https://sinp-wiki.cbn-alpin.fr
 
 ## Synchronisation locale vers serveur
 
+### Dossier Docker
 Pour synchroniser ces fichiers avec le serveur utiliser `rsync` :
  - Se placer à la racine du dépôt
  - Lancer la commande `rsync` suivante, ici pour *web-srv* et le dossier *docker* :
@@ -14,6 +15,14 @@ Pour synchroniser ces fichiers avec le serveur utiliser `rsync` :
 ```shell
 rsync -av ./web-srv/docker/ admin@web-paca-sinp:/home/admin/docker/
 ```
+
+### Fichiers de l'Atlas
+Utiliser `rsync`. Exemple pour synchroniser les images personnalisables depuis le dossier `/home/geonat/www/atlas` :
+
+```shell
+rsync -av --size-only ./static/custom/images/ geonat@web-paca-sinp:/home/geonat/www/atlas/static/custom/images/
+```
+Cette commande utilise l'option --size-only pour baser le transfert seulement sur les différences de tailles des fichiers sans prendre en compte les métadonnées.
 
 ## Commandes utiles avec les images Docker
 

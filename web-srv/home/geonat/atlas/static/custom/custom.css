@@ -28,7 +28,10 @@ a.btn.btn-default:hover{
 	color: white !important;
     /*font-family: 'Baloo Bhaina', cursive;*/
 }
-
+.navbar .navbar-brand .logoStructure {
+	height: 50px;
+	margin: -10px;
+}
 /* SIDEBAR */
 .sidebar {
 	background: #323233 !important;

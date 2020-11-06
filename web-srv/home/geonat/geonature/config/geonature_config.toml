@@ -71,10 +71,27 @@ appName = "Silene Expert"
         required = true
 
     [[ACCOUNT_MANAGEMENT.ACCOUNT_FORM]]
-        type_widget = "select"
-        attribut_label = "Exemple select"
-        attribut_name = "select_test"
-        values = ["valeur1", "valeur2"]
+        type_widget = "text"
+        attribut_label = """\
+			Merci pour votre demande d’inscription. Après validation de l’administrateur, vous \
+			pourrez accéder aux observations publiques avec leur précision de géolocalisation \
+			maximale. La  géolocalisation des autres observations peut être dégradée suite à \
+			l’application des règles de géo-confidentialité du SINP.
+    		L'accès à ces données avec leur précision maximale nécessite, dans Silene, de compléter \
+			un « formulaire de demande d’accès aux données précises » \
+			(<a href="https://cms.silene.eu/">en savoir plus</a>). \
+			L'accord sera formalisé par l’acceptation d'une convention « droit d'accès aux données \
+			précises » et donnera lieu à l'attribution d'un accès direct à ces données. La \
+			convention  engage le titulaire à un bon usage des données et à \
+			<a href="https://cms.silene.eu/contribuer/">une alimentation de Silene en retour</a>.
+    		Les autorisations d'accès sont gérées par les administrateurs de données s'appuyant sur \
+			le Comité d’administrateurs de Silene.
+    		Les données et informations qui vous sont fournies dans le cadre de Silene ne sont pas \
+			exhaustives et peuvent donc s’avérer insuffisantes pour les besoins spécifiques de \
+			votre étude. Une réactualisation de ces données dans le cadre d’inventaires \
+			complémentaires est nécessaire.
+			"""
+        attribut_name = "conditions"
         required = false
 
 # Configuration générale du frontend
@@ -119,7 +136,10 @@ appName = "Silene Expert"
         { prop = "observers", name = "Observateurs" },
         { prop = "dataset_name", name = "Jeu de données" }
     ]
-# Champs à afficher dans l'export
+	# Affiche (=true) ou masque (=false) l'arbre de recherche taxonomique
+    # dans la recherche taxonomique avancée.
+	DISPLAY_TAXON_TREE = false
+	# Champs à afficher dans l'export
     # Voir les noms des champs de la ``vue gn_synthese.v_synthese_for_export``
     EXPORT_COLUMNS   = [
         #"idSynthese",
@@ -165,3 +185,52 @@ appName = "Silene Expert"
         #"vTAXREF",
         #"lastAction",
     ]
+
+[PERMISSION_MANAGEMENT]
+    # Activer (=true) l'affichage du lien vers le formulaire de demande
+    # de permissions. Par défaut : désactivé (=false).
+    ENABLE_ACCESS_REQUEST = true
+    # Définition de la section personnalisable du formulaire de demande
+    # de permission d'accès.
+    [[PERMISSION_MANAGEMENT.REQUEST_FORM]]
+        type_widget = "html"
+        attribut_name = "motivation-intro"
+        html = """
+            <h4>Motiviations de la demande</h4>
+            <p>
+                Veuillez décrire ci-dessous les motivations à l'origine
+                de votre demande.
+            </p>"""
+    [[PERMISSION_MANAGEMENT.REQUEST_FORM]]
+        type_widget = "select"
+        attribut_label = "Type d'étude ou de projet"
+        attribut_name = "project-type"
+        values = [
+            "Plan de gestion",
+            "DOCOB Natura 2000",
+            "Inventaire scientifique",
+            "Expertise écologique réglementaire",
+            "Étude trame verte et bleue",
+            "PLU / SCOT",
+            "Autre (à préciser dans description)"]
+        required = true
+    [[PERMISSION_MANAGEMENT.REQUEST_FORM]]
+        type_widget = "textarea"
+        attribut_label = "Commanditaire"
+        attribut_name = "project-sponsor"
+        required = true
+        help = """
+            Veuillez indiquer le nom du commanditaire de l’étude ou
+            l’organisme à l’origine du projet."""
+    [[PERMISSION_MANAGEMENT.REQUEST_FORM]]
+        type_widget = "textarea"
+        attribut_label = "Description"
+        attribut_name = "project-description"
+        required = false
+        help = """
+            Préciser le calendrier, la finalité, l'objet de l’étude
+            scientifique et le cadre réglementaire dans lequel s’inscrit
+            la demande (Étude d'impact, étude d'incidence Natura 2000,
+            étude d'incidence Eau, demande d'autorisation au titre de la
+            loi sur l'eau, demande d'autorisation au titre des ICPE,
+            demande d'autorisation de destruction d'espèces protégées)."""

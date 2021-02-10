@@ -94,11 +94,29 @@ AFFICHAGE_EN_CE_MOMENT = True
 ####### FICHE ESPECE #######
 ############################
 
+# Rang taxonomique qui fixe jusqu'à quel taxon remonte la filiation taxonomique (hierarchie dans la fiche d'identite : Famille, Ordre etc... )
+LIMIT_RANG_TAXONOMIQUE_HIERARCHIE = 13
+
+# Rang taxonomique qui fixe la limite de l'affichage de la fiche espece ou de la liste
+# 35 = ESPECE
+# On prend alors tout ce qui est inferieur ou egal a l'espece pour faire des fiches et ce qui est superieur pour les listes
+LIMIT_FICHE_LISTE_HIERARCHY = 35
+
+# URL d'accès aux photos et autres médias (URL racine). Par exemple l'url d'accès à Taxhub
+# Cette url sera cachée aux utilisateurs de l'atlas
+REMOTE_MEDIAS_URL = "https://taxhub.silene.eu/"
+# Racine du chemin des fichiers médias stockés dans le champ "chemin" de "atlas.vm_medias"
+# Seule cette partie de l'url sera visible pour les utilisateurs de l'atlas
+REMOTE_MEDIAS_PATH = "static/medias/"
+
 # URL de TaxHub (pour génération à la volée des vignettes des images).
 # Si le service Taxhub n'est pas utilisé, commenter la variable
 REDIMENSIONNEMENT_IMAGE = True
 # si redimmentionnement image = True, indiquer l'URL de taxhub
 TAXHUB_URL = "https://taxhub.silene.eu"
+
+# Coupe le nom_vernaculaire à la 1ere virgule sur les fiches espèces
+SPLIT_NOM_VERN = True
 
 #############################
 #### PAGES STATIQUES #####

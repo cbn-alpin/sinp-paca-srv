@@ -14,14 +14,25 @@ a.btn.btn-default:hover{
 }
 
 /* TOOLBAR */
+#app-toolbar {
+ 	background:
+ 		linear-gradient(to right, rgba(245, 245, 245, 1) 0%, rgba(245, 245, 245, 0.75) 100%),
+ 		url("custom/images/toolbar-bg.webp") right bottom/702px 64px no-repeat !important;
+}
 // #app-toolbar {
 // 	background:
-// 		linear-gradient(to right, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.75) 100%),
-// 		url("custom/images/toolbar-bg.png") right bottom/cover no-repeat !important;
+// 		linear-gradient(
+// 			to right,
+// 			rgba(139, 21, 88, 0.4) 0%,
+// 			whitesmoke 50%,
+// 			rgba(139, 21, 88, 0.2) 66%),
+// 		url('custom/images/toolbar-bg.webp') right bottom/702px 64px no-repeat !important;
 // }
-// #logo-structure {
-// 	display: none;
-// }
+
+mat-toolbar#app-toolbar .mat-raised-button,
+mat-toolbar#app-toolbar .mat-icon-button {
+ 	background-color: transparent !important;
+}
 #appName h3 {
 	color: #A10D59;
 	font-weight: 900;

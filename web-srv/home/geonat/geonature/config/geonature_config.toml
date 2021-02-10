@@ -36,7 +36,7 @@ appName = "Silene Expert"
 #######################################################################################
 # Configuration de l'envoie d'emails
 [MAIL_CONFIG]
-    MAIL_SERVER = 'smtp-relay.gmail.com'
+    MAIL_SERVER = 'ssl0.ovh.net'
     MAIL_PORT = 587
     MAIL_USE_TLS = true
     MAIL_USE_SSL = false
@@ -58,40 +58,57 @@ appName = "Silene Expert"
 [ACCOUNT_MANAGEMENT]
     ENABLE_SIGN_UP = true
     AUTO_ACCOUNT_CREATION = false
-    VALIDATOR_EMAIL = '<email-validator>'
+    VALIDATOR_EMAIL = [
+            "Silene Admin <contact@expert.silene.eu>",
+            "Lucile VAHE <l.vahe@cbn-alpin.fr>",
+            "Julie DELAUGE <julie.delauge@cen-paca.org>",
+            "Géraldine KAPFER <geraldine.kapfer@cen-paca.org>"
+        ]
     AUTO_DATASET_CREATION = false
     ENABLE_USER_MANAGEMENT = true
-
+	ADDON_USER_EMAIL = """<p>
+        Nous vous rappelons que cette inscription vous donne accès à la
+        consultation des données publiques versées dans Silene.<br />
+        L’accès aux autres données nécessite de compléter un
+        « <a href="https://expert.silene.eu/\u0023/permissions/requests/add">formulaire de demande d‘accès aux données précises</a> ».<br/ >
+        L'accord sera formalisé par l’acceptation d'une convention
+        « droit d'accès aux données précises » et donnera lieu
+        à l'attribution d'un accès direct à ces données.<br />
+        La convention engage le titulaire au bon usage des données
+        et à <a href="https://cms.silene.eu/contribuer/">une alimentation de Silene</a>
+        en retour.
+        </p>"""
     # Gestion du formulaire de demande d'inscription
-    [[ACCOUNT_MANAGEMENT.ACCOUNT_FORM]]
+	[[ACCOUNT_MANAGEMENT.ACCOUNT_FORM]]
         type_widget = "checkbox"
-        attribut_label = "<a target='_blank' href='https://cms.silene.eu/charte-silene/'>J'accepte les conditions d'utilisation et la charte Silene</a>"
+        attribut_label = """
+            <a target="_blank" href="https://cms.silene.eu/charte-silene/">
+                J'accepte les conditions d'utilisation et la charte Silene
+            </a>"""
         attribut_name = "validate_charte"
         values = [true]
         required = true
-
     [[ACCOUNT_MANAGEMENT.ACCOUNT_FORM]]
-        type_widget = "text"
-        attribut_label = """\
-			Merci pour votre demande d’inscription. Après validation de l’administrateur, vous \
-			pourrez accéder aux observations publiques avec leur précision de géolocalisation \
-			maximale. La  géolocalisation des autres observations peut être dégradée suite à \
-			l’application des règles de géo-confidentialité du SINP.
-    		L'accès à ces données avec leur précision maximale nécessite, dans Silene, de compléter \
-			un « formulaire de demande d’accès aux données précises » \
-			(<a href="https://cms.silene.eu/">en savoir plus</a>). \
-			L'accord sera formalisé par l’acceptation d'une convention « droit d'accès aux données \
-			précises » et donnera lieu à l'attribution d'un accès direct à ces données. La \
-			convention  engage le titulaire à un bon usage des données et à \
-			<a href="https://cms.silene.eu/contribuer/">une alimentation de Silene en retour</a>.
-    		Les autorisations d'accès sont gérées par les administrateurs de données s'appuyant sur \
-			le Comité d’administrateurs de Silene.
-    		Les données et informations qui vous sont fournies dans le cadre de Silene ne sont pas \
-			exhaustives et peuvent donc s’avérer insuffisantes pour les besoins spécifiques de \
-			votre étude. Une réactualisation de ces données dans le cadre d’inventaires \
-			complémentaires est nécessaire.
-			"""
+        type_widget = "html"
         attribut_name = "conditions"
+        class = "alert alert-primary"
+        html = """
+            <p>Merci pour votre demande d’inscription. Après validation par l’administrateur, vous
+            pourrez accéder aux observations publiques avec leur précision de géolocalisation
+            maximale. La  géolocalisation des autres observations peut être dégradée suite à
+            l’application des règles de confidentialité du SINP (données privées et données sensibles).</p>
+            <p>L'accès à ces données avec leur précision maximale nécessite, dans Silene, de compléter
+            un « formulaire de demande d’accès aux données précises ».
+            L'accord sera formalisé par l’acceptation d'une convention « droit d'accès aux données
+            précises » et donnera lieu à l'attribution d'un accès direct à ces données. La
+            convention  engage le titulaire à un bon usage des données et à
+            <a href="https://cms.silene.eu/contribuer/">une alimentation de Silene en retour</a>.</p>
+            <p>Les autorisations d'accès sont gérées par les administrateurs de données s'appuyant sur
+            le Comité d’administrateurs de Silene.</p>
+            <p>Les données et informations qui vous sont fournies dans le cadre de Silene ne sont pas
+            exhaustives et peuvent donc s’avérer insuffisantes pour les besoins spécifiques de
+            votre étude. Une réactualisation de ces données dans le cadre d’inventaires
+            complémentaires est nécessaire.</p>"""
         required = false
 
 # Configuration générale du frontend
@@ -119,14 +136,19 @@ appName = "Silene Expert"
     # Zoom appliqué sur la carte lorsque l'on clique sur une liste
     ZOOM_ON_CLICK = 16
 
+# CRITICAL: 50 ; ERROR: 40 ; WARNING: 30 ; INFO: 20 ; DEBUG: 10 ; NOTSET: 0
+[SERVER]
+    LOG_LEVEL = 20
+
 # Configuration de la Synthese
 [SYNTHESE]
     # Nombre d'observation maximum à afficher sur la carte après une recherche
-    NB_MAX_OBS_MAP = 50000
+    NB_MAX_OBS_MAP = 100000
     # Nombre max d'observation dans les exports
-    NB_MAX_OBS_EXPORT = 150000
+	# Au 2020-11-12, un bug empêche d'avoir une valeur différente pour les export.
+    NB_MAX_OBS_EXPORT = 100000
     # Nombre des dernières observations affichées par défaut quand on arrive sur la synthese
-    NB_LAST_OBS = 3000
+    NB_LAST_OBS = 0
     # Colonne à afficher par défaut sur la liste des résultats de la synthese
     # Choisir le champ 'prop' parmis les colonnes suivante
     # (id_synthese, date_min, cd_nom, lb_nom, nom_vern_or_lb_nom, st_asgeojson, observers, dataset_name, url_source)
@@ -142,69 +164,79 @@ appName = "Silene Expert"
 	# Champs à afficher dans l'export
     # Voir les noms des champs de la ``vue gn_synthese.v_synthese_for_export``
     EXPORT_COLUMNS   = [
-        #"idSynthese",
-        "permId",
-        "permIdGrp",
-        "jddCode",
-        "validStat",
+        "uuid_perm_sinp",
+        "uuid_perm_grp_sinp",
+        "jdd_nom",
+        "jdd_uuid",
+        "niveau_validation",
         "validateur",
-        "observer",
-        "cdNom",
-        "nomCite",
-        "denbrMin",
-        "denbrMax",
-        "dateDebut",
-        "dateFin",
-        "wkt",
-        #"altMin",
-        #"altMax",
-        #"EchanPreuv",
-        #"PreuvNum",
-        #"PreuvNoNum",
-        #"obsCtx",
-        #"obsDescr",
-        #"ObjGeoTyp",
-        #"methGrp",
-        #"obsMeth",
-        #"ocEtatBio",
-        #"ocStatBio",
-        #"ocNat",
-        #"preuveOui",
-        #"difNivPrec",
-        #"ocStade",
-        #"ocSex",
-        #"objDenbr",
-        #"denbrTyp",
-        #"sensiNiv",
-        #"statObs",
-        #"dEEFlou",
-        #"statSource",
-        #"typInfGeo",
-        #"methDeterm",
-        #"cdRef",
-        #"vTAXREF",
-        #"lastAction",
+        "observateurs",
+        "cd_nom",
+        "nom_cite",
+        "nombre_min",
+        "nombre_max",
+        "date_debut",
+        "date_fin",
+        "x_centroid_4326",
+        "y_centroid_4326",
+        "geometrie_wkt_4326",
     ]
 
 [PERMISSION_MANAGEMENT]
     # Activer (=true) l'affichage du lien vers le formulaire de demande
     # de permissions. Par défaut : désactivé (=false).
     ENABLE_ACCESS_REQUEST = true
+    # Lien vers les règles d'accès aux observations sensibles propres à
+    # cette instance de GeoNature
+    DATA_ACCESS_RULES_LINK = "https://cms.silene.eu/"
+    # Types zones géo formulaire de demande d'accès.
+    AREA_TYPES = [25, 26]
+    # Durée minimum en jour pendant laquelle l'accès est autorisé.
+    DEFAULT_ACCESS_DURATION = 90
+    # Durée maximum en jour pendant laquelle l'accès peut être autorisé.
+    MAX_ACCESS_DURATION = 730
+    # Email du validateur des permissions d'accès.
+    VALIDATOR_EMAIL = [
+            "Jean-Pascal MILCENT <jp.milcent@cbn-alpin.fr>",
+            "Lucile VAHE <l.vahe@cbn-alpin.fr>",
+            "Julie DELAUGE <julie.delauge@cen-paca.org>",
+            "Géraldine KAPFER <geraldine.kapfer@cen-paca.org>"
+        ]
+
+    # Activer la validation de la convention suite à une demande d'accès
+    ENABLE_CONVENTION = true
+    # Titre de la fenêtre modale affichant la convention
+    CONVENTION_TITLE = "Convention « Droit d'accès ponctuel aux données confidentielles de Silene »"
+    # Libellé du bouton permettant d'accepter la convention
+    CONVENTION_VALIDATE = "J'accepte les termes de la convention « droit d'accès » Silene."
+
+    # Titre de la section personnalisable du formulaire de demande d'accès
+    REQUEST_FORM_TITLE = "Motivations de la demande"
     # Définition de la section personnalisable du formulaire de demande
     # de permission d'accès.
     [[PERMISSION_MANAGEMENT.REQUEST_FORM]]
+        type_widget = "select"
+        attribut_label = "Règne concerné"
+        attribut_name = "kingdom"
+        icon = "fa-sitemap"
+        icon_set = "fa"
+        values = [
+            "Végétal",
+            "Animal",
+            "Végétal et Animal"]
+        required = true
+    [[PERMISSION_MANAGEMENT.REQUEST_FORM]]
         type_widget = "html"
-        attribut_name = "motivation-intro"
+        attribut_name = "motivationIntro"
         html = """
-            <h4>Motiviations de la demande</h4>
-            <p>
+            <small class="form-text text-muted">
                 Veuillez décrire ci-dessous les motivations à l'origine
                 de votre demande.
-            </p>"""
+            </small>"""
     [[PERMISSION_MANAGEMENT.REQUEST_FORM]]
         type_widget = "select"
         attribut_label = "Type d'étude ou de projet"
-        attribut_name = "project-type"
+        attribut_name = "projectType"
         values = [
             "Plan de gestion",
             "DOCOB Natura 2000",
@@ -217,18 +249,18 @@ appName = "Silene Expert"
     [[PERMISSION_MANAGEMENT.REQUEST_FORM]]
         type_widget = "textarea"
         attribut_label = "Commanditaire"
-        attribut_name = "project-sponsor"
+        attribut_name = "projectSponsor"
         required = true
-        help = """
-            Veuillez indiquer le nom du commanditaire de l’étude ou
+        rows = 4
+        help = """Veuillez indiquer le nom du commanditaire de l’étude ou
             l’organisme à l’origine du projet."""
     [[PERMISSION_MANAGEMENT.REQUEST_FORM]]
         type_widget = "textarea"
         attribut_label = "Description"
-        attribut_name = "project-description"
+        attribut_name = "projectDescription"
         required = false
-        help = """
-            Préciser le calendrier, la finalité, l'objet de l’étude
+        rows = 10
+        help = """Précisez le calendrier, la finalité, l'objet de l’étude
             scientifique et le cadre réglementaire dans lequel s’inscrit
             la demande (Étude d'impact, étude d'incidence Natura 2000,
             étude d'incidence Eau, demande d'autorisation au titre de la

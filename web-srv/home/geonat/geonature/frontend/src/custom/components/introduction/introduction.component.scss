@@ -3,3 +3,26 @@ h2 {
     color: #A10D59;
 	line-height: 40px;
 }
+p {
+	max-width: 800px;
+	text-align: justify;
+}
+.frieze-silene-container {
+	position: relative;
+	height: 140px;
+	width: 100%;
+	max-width: 1200px;
+
+	.frieze-silene {
+		height: 140px;
+		width: 100%;
+	}
+	.motto-silene {
+		color: rgba(55, 56, 58, .8);
+		font-size: 1.3rem;
+		margin: 0;
+		position: absolute;
+		bottom: 0;
+		right: 0;
+	}
+}

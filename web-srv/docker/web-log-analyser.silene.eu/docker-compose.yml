@@ -2,7 +2,7 @@ version: "3.7"
 
 services:
   web-log-analyser-nginx:
-    image: nginx:1.16.1
+    image: nginx:1.18.0
     # https://hub.docker.com/_/nginx
     container_name: web-log-analyser-nginx
     restart: unless-stopped

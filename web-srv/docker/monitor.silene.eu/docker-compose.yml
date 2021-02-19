@@ -2,7 +2,7 @@ version: "3.7"
 
 services:
   monitor-influxdb:
-    image: influxdb:1.7.9
+    image: influxdb:1.8.4
     # https://hub.docker.com/_/influxdb
     container_name: monitor-influxdb
     restart: unless-stopped
@@ -18,7 +18,7 @@ services:
       - influxdb-storage:/var/lib/influxdb/data
 
   monitor-telegraf:
-    image: telegraf:1.13.2
+    image: telegraf:1.17.2
     # https://hub.docker.com/_/telegraf
     container_name: monitor-telegraf
     restart: unless-stopped
@@ -43,7 +43,7 @@ services:
       - /opt/srvstatus/status.json:/opt/srvstatus/status.json
 
   monitor-grafana:
-    image: grafana/grafana:6.6.1
+    image: grafana/grafana:7.4.2
     # https://hub.docker.com/r/grafana/grafana
     container_name: monitor-grafana
     restart: unless-stopped

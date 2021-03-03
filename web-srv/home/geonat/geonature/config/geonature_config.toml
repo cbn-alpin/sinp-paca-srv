@@ -75,14 +75,14 @@ appName = "Silene Expert"
         « droit d'accès aux données précises » et donnera lieu
         à l'attribution d'un accès direct à ces données.<br />
         La convention engage le titulaire au bon usage des données
-        et à <a href="https://cms.silene.eu/contribuer/">une alimentation de Silene</a>
+        et à <a href="https://silene.eu/contribuer/">une alimentation de Silene</a>
         en retour.
         </p>"""
     # Gestion du formulaire de demande d'inscription
 	[[ACCOUNT_MANAGEMENT.ACCOUNT_FORM]]
         type_widget = "checkbox"
         attribut_label = """
-            <a target="_blank" href="https://cms.silene.eu/charte-silene/">
+            <a target="_blank" href="https://silene.eu/charte-silene/">
                 J'accepte les conditions d'utilisation et la charte Silene
             </a>"""
         attribut_name = "validate_charte"
@@ -102,7 +102,7 @@ appName = "Silene Expert"
             L'accord sera formalisé par l’acceptation d'une convention « droit d'accès aux données
             précises » et donnera lieu à l'attribution d'un accès direct à ces données. La
             convention  engage le titulaire à un bon usage des données et à
-            <a href="https://cms.silene.eu/contribuer/">une alimentation de Silene en retour</a>.</p>
+            <a href="https://silene.eu/contribuer/">une alimentation de Silene en retour</a>.</p>
             <p>Les autorisations d'accès sont gérées par les administrateurs de données s'appuyant sur
             le Comité d’administrateurs de Silene.</p>
             <p>Les données et informations qui vous sont fournies dans le cadre de Silene ne sont pas
@@ -188,7 +188,7 @@ appName = "Silene Expert"
     ENABLE_ACCESS_REQUEST = true
     # Lien vers les règles d'accès aux observations sensibles propres à
     # cette instance de GeoNature
-    DATA_ACCESS_RULES_LINK = "https://cms.silene.eu/"
+    DATA_ACCESS_RULES_LINK = "https://silene.eu/"
     # Types zones géo formulaire de demande d'accès.
     AREA_TYPES = [25, 26]
     # Durée minimum en jour pendant laquelle l'accès est autorisé.

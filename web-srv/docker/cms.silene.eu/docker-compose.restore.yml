@@ -8,7 +8,7 @@ version: "3.7"
 #   5. Check restoration
 services:
   cms-volumerize-restore-from-local:
-    image: blacklabelops/volumerize:1.5.1
+    image: blacklabelops/volumerize:1.6
     # https://hub.docker.com/r/blacklabelops/volumerize/tags
     container_name: cms-volumerize-restore-from-local
     restart: "no"
@@ -29,7 +29,7 @@ services:
     command: verify
 
   cms-volumerize-restore-from-dropbox:
-    image: blacklabelops/volumerize:1.5.1
+    image: blacklabelops/volumerize:1.6
     # https://hub.docker.com/r/blacklabelops/volumerize/tags
     container_name: cms-volumerize-restore-from-dropbox
     restart: "no"

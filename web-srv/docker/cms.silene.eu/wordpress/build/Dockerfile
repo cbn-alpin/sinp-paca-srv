@@ -1,4 +1,5 @@
-FROM wordpress:5.3.2-php7.4-fpm
+FROM wordpress:5.6.2-php7.4-fpm
+# https://hub.docker.com/_/wordpress
 
 # Install utils and sendmail
 RUN apt-get update \

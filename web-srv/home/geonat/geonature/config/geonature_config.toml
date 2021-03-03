@@ -4,6 +4,7 @@
 #         'geonature update_configuration'
 ###############################################################################
 
+DEBUG = false
 
 #############################################
 # GeoNature backend global configuration file
@@ -11,18 +12,18 @@
 
 # Database
 SQLALCHEMY_DATABASE_URI = "postgresql://<user>:<password>@10.0.1.20:5432/geonature2db"
-URL_APPLICATION = 'https://expert.silene.eu'
-API_ENDPOINT = 'https://expert.silene.eu/api'
-API_TAXHUB = 'https://taxhub.silene.eu/api'
+URL_APPLICATION = "https://expert.silene.eu"
+API_ENDPOINT = "https://expert.silene.eu/api"
+API_TAXHUB = "https://taxhub.silene.eu/api"
 
 # Remplacer par une clé alétoire complexe
-SECRET_KEY = '<secret-key>'
+SECRET_KEY = "<secret-key>"
 
 # Code EPSG des geométries dans la BDD
-LOCAL_SRID = '2154'
+LOCAL_SRID = "2154"
 
 # Langue principale par défaut
-DEFAULT_LANGUAGE='fr'
+DEFAULT_LANGUAGE = "fr"
 
 # Enable logging email error (must fill the mail config section bellow if true)
 MAIL_ON_ERROR = true
@@ -34,22 +35,26 @@ appName = "Silene Expert"
 ###### Si vous souhaitez surcoucher certains paramètres,
 ###### compléter les sections ci-dessous à partir du modèle default_config.toml.example
 #######################################################################################
+
+# Configuration liée aux ID de BDD
+#[BDD]
+
 # Configuration de l'envoie d'emails
 [MAIL_CONFIG]
-    MAIL_SERVER = 'ssl0.ovh.net'
+    MAIL_SERVER = "ssl0.ovh.net"
     MAIL_PORT = 587
     MAIL_USE_TLS = true
     MAIL_USE_SSL = false
-    MAIL_USERNAME = '<email-username>'
-    MAIL_PASSWORD = '<email-password>'
-    MAIL_DEFAULT_SENDER = '<email-default-sender>'
+    MAIL_USERNAME = "<email-username>"
+    MAIL_PASSWORD = "<email-password>"
+    MAIL_DEFAULT_SENDER = "<email-default-sender>"
     MAIL_ASCII_ATTACHMENTS = false
     # email(s) to the administrator for the email logging
     ERROR_MAIL_TO = ["<email-error>"]
 
 # Configuration de l'accès distant à UsersHub (API)
 [USERSHUB]
-    URL_USERSHUB = 'https://usershub.silene.eu' # sans slash final
+    URL_USERSHUB = "https://usershub.silene.eu" # sans slash final
     # Administrateur de mon application
     ADMIN_APPLICATION_LOGIN = "<user-admin-login>"
     ADMIN_APPLICATION_PASSWORD = "<user-admin-password>"
@@ -61,16 +66,17 @@ appName = "Silene Expert"
     VALIDATOR_EMAIL = [
             "Silene Admin <contact@expert.silene.eu>",
             "Lucile VAHE <l.vahe@cbn-alpin.fr>",
+            "silene-admin@cbn-alpin.fr",
             "Julie DELAUGE <julie.delauge@cen-paca.org>",
             "Géraldine KAPFER <geraldine.kapfer@cen-paca.org>"
         ]
-    AUTO_DATASET_CREATION = false
+	AUTO_DATASET_CREATION = false
     ENABLE_USER_MANAGEMENT = true
-	ADDON_USER_EMAIL = """<p>
+    ADDON_USER_EMAIL = """<p>
         Nous vous rappelons que cette inscription vous donne accès à la
         consultation des données publiques versées dans Silene.<br />
         L’accès aux autres données nécessite de compléter un
-        « <a href="https://expert.silene.eu/\u0023/permissions/requests/add">formulaire de demande d‘accès aux données précises</a> ».<br/ >
+        « <a href="https://expert.silene.eu/\u0023/permissions/requests/add">formulaire de demande d‘accès aux données précises</a> ».<br/>
         L'accord sera formalisé par l’acceptation d'une convention
         « droit d'accès aux données précises » et donnera lieu
         à l'attribution d'un accès direct à ces données.<br />
@@ -79,10 +85,9 @@ appName = "Silene Expert"
         en retour.
         </p>"""
     # Gestion du formulaire de demande d'inscription
-	[[ACCOUNT_MANAGEMENT.ACCOUNT_FORM]]
+    [[ACCOUNT_MANAGEMENT.ACCOUNT_FORM]]
         type_widget = "checkbox"
-        attribut_label = """
-            <a target="_blank" href="https://silene.eu/charte-silene/">
+        attribut_label = """<a target="_blank" href="https://silene.eu/charte-silene/">
                 J'accepte les conditions d'utilisation et la charte Silene
             </a>"""
         attribut_name = "validate_charte"
@@ -114,9 +119,9 @@ appName = "Silene Expert"
 # Configuration générale du frontend
 [FRONTEND]
     # Affiche la carte des 100 obs sur la page d'accueil
-    DISPLAY_MAP_LAST_OBS = true
+    DISPLAY_MAP_LAST_OBS = false
 
-	# Affiche le composant 'custom/components/footer' sur la page d'accueil
+    # Affiche le composant 'custom/components/footer' sur la page d'accueil
     DISPLAY_FOOTER = true
 
 # Configuration cartographique
@@ -144,9 +149,6 @@ appName = "Silene Expert"
 [SYNTHESE]
     # Nombre d'observation maximum à afficher sur la carte après une recherche
     NB_MAX_OBS_MAP = 100000
-    # Nombre max d'observation dans les exports
-	# Au 2020-11-12, un bug empêche d'avoir une valeur différente pour les export.
-    NB_MAX_OBS_EXPORT = 100000
     # Nombre des dernières observations affichées par défaut quand on arrive sur la synthese
     NB_LAST_OBS = 0
     # Colonne à afficher par défaut sur la liste des résultats de la synthese
@@ -158,12 +160,29 @@ appName = "Silene Expert"
         { prop = "observers", name = "Observateurs" },
         { prop = "dataset_name", name = "Jeu de données" }
     ]
-	# Affiche (=true) ou masque (=false) l'arbre de recherche taxonomique
+    # Affiche (=true) ou masque (=false) l'arbre de recherche taxonomique
     # dans la recherche taxonomique avancée.
-	DISPLAY_TAXON_TREE = false
-	# Champs à afficher dans l'export
+    DISPLAY_TAXON_TREE = false
+
+    # Nombre max d'observation dans les exports
+    # WARNING : Au 2020-11-12, un bug empêche d'avoir une valeur différente pour les export.
+    NB_MAX_OBS_EXPORT = 100000
+
+    # Noms des colonnes obligatoires de la vue ``gn_synthese.v_synthese_for_export``
+    EXPORT_ID_SYNTHESE_COL = "id_synthese"
+    EXPORT_ID_DATASET_COL = "jdd_id"
+    EXPORT_ID_DIGITISER_COL = "id_digitiser"
+    EXPORT_OBSERVERS_COL = "observateur"
+    EXPORT_GEOJSON_4326_COL = "geojson_4326"
+    EXPORT_GEOJSON_LOCAL_COL = "geojson_local"
+
+    # Noms des colonnes obligatoires de la vue ``gn_synthese.v_metadata_for_export``
+    EXPORT_METADATA_ID_DATASET_COL = "jdd_id"
+    EXPORT_METADATA_ACTOR_COL = "acteurs"
+
+    # Champs à afficher dans l'export
     # Voir les noms des champs de la ``vue gn_synthese.v_synthese_for_export``
-    EXPORT_COLUMNS   = [
+    EXPORT_COLUMNS = [
         "uuid_perm_sinp",
         "uuid_perm_grp_sinp",
         "jdd_nom",
@@ -176,10 +195,12 @@ appName = "Silene Expert"
         "nombre_min",
         "nombre_max",
         "date_debut",
+        "heure_debut",
         "date_fin",
-        "x_centroid_4326",
-        "y_centroid_4326",
-        "geometrie_wkt_4326",
+        "heure_fin",
+        "geojson_4326",
+        "precision_geographique",
+        "niveau_precision_diffusion",
     ]
 
 [PERMISSION_MANAGEMENT]
@@ -199,6 +220,7 @@ appName = "Silene Expert"
     VALIDATOR_EMAIL = [
             "Jean-Pascal MILCENT <jp.milcent@cbn-alpin.fr>",
             "Lucile VAHE <l.vahe@cbn-alpin.fr>",
+            "silene-admin@cbn-alpin.fr",
             "Julie DELAUGE <julie.delauge@cen-paca.org>",
             "Géraldine KAPFER <geraldine.kapfer@cen-paca.org>"
         ]
@@ -237,6 +259,8 @@ appName = "Silene Expert"
         type_widget = "select"
         attribut_label = "Type d'étude ou de projet"
         attribut_name = "projectType"
+        icon = "fa-tag"
+        icon_set = "fa"
         values = [
             "Plan de gestion",
             "DOCOB Natura 2000",
@@ -250,6 +274,7 @@ appName = "Silene Expert"
         type_widget = "textarea"
         attribut_label = "Commanditaire"
         attribut_name = "projectSponsor"
+        icon = "request_quote"
         required = true
         rows = 4
         help = """Veuillez indiquer le nom du commanditaire de l’étude ou
@@ -258,6 +283,7 @@ appName = "Silene Expert"
         type_widget = "textarea"
         attribut_label = "Description"
         attribut_name = "projectDescription"
+        icon = "text_snippet"
         required = false
         rows = 10
         help = """Précisez le calendrier, la finalité, l'objet de l’étude
@@ -266,3 +292,22 @@ appName = "Silene Expert"
             étude d'incidence Eau, demande d'autorisation au titre de la
             loi sur l'eau, demande d'autorisation au titre des ICPE,
             demande d'autorisation de destruction d'espèces protégées)."""
+
+[DATA_BLURRING]
+    # Activer (=true) l'affichage du floutage des données.
+    ENABLE_DATA_BLURRING = true
+    # Correspondance entre les niveau de diffusion (nomenclaure NIV_PRECIS)
+    # et un type de zone géographique utilisée pour le rendu sur les cartes.
+    AREA_TYPE_FOR_DIFFUSION_LEVELS = [
+            {level = "0", area = "M5"},# Standard
+            {level = "1", area = "M5"},# Commune
+            {level = "2", area = "M5"},# Maille
+            {level = "3", area = "M10"},# Département
+        ]
+    # Correspondance entre les niveau de sensibilité (nomenclaure SENSIBILITE)
+    # et un type de zone géographique utilisée pour le rendu sur les cartes.
+    AREA_TYPE_FOR_SENSITIVITY_LEVELS = [
+            {level = "1", area = "M5"},# Commune
+            {level = "2", area = "M5"},# Maille
+            {level = "3", area = "M10"},# Département
+        ]

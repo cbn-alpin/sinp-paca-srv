@@ -89,6 +89,12 @@ AFFICHAGE_DERNIERES_OBS = False
 # Bloc avec espèces à voir en ce moment. Affichage True/False
 AFFICHAGE_EN_CE_MOMENT = True
 
+# Bloc stats par rangs
+AFFICHAGE_RANG_STAT = True
+COLONNES_RANG_STAT = 4
+RANG_STAT_FR = ['Faune vertébrée', 'Faune invertébrée', 'Plantes', 'Champignons']
+RANG_STAT = [{'phylum': ["Chordata"]}, {'phylum': ["Arthropoda", "Mollusca", "Annelida", "Cnidaria", "Platyhelminthes"]}, {'regne': ["Plantae"]}, {'regne': ["Fungi"]}]
+
 
 ############################
 ####### FICHE ESPECE #######

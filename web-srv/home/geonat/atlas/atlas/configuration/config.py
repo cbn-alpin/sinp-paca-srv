@@ -84,7 +84,7 @@ AFFICHAGE_FOOTER = True
 AFFICHAGE_STAT_GLOBALES = True
 
 # Bloc avec carte et liste des dernières observations. Affichage True/False
-AFFICHAGE_DERNIERES_OBS = True
+AFFICHAGE_DERNIERES_OBS = False
 
 # Bloc avec espèces à voir en ce moment. Affichage True/False
 AFFICHAGE_EN_CE_MOMENT = True

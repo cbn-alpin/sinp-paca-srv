@@ -47,12 +47,20 @@ a.btn.btn-default:hover{
 	line-height: 40px;
 }
 
+/* PRESENTATION */
+.presentation .panel.panel-default {
+	padding: 0 15px 15px 15px;
+}
+
 /* FOOTER */
 .footer .logos .img-thumbnail {
 	margin: .25rem;
 }
 .footer .logos .img-thumbnail:hover {
 	border-color: #A10D59;
+}
+.footer .text-muted {
+	text-transform: none !important;
 }
 
 /* FICHE ESPECE */

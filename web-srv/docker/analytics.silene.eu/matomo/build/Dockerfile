@@ -1,5 +1,8 @@
-FROM matomo:3.13.3-fpm
+FROM matomo:4.2.1-fpm
 # See : https://www.projekt-rootserver.de/matomo-docker-image-erstellen/2019/09/
+
+ARG MSMTP_OVH_PWD
+
 # Install utils and sendmail
 RUN apt-get update \
 	&& apt-get install -y --no-install-recommends \
@@ -12,9 +15,9 @@ COPY matomo.ini /usr/local/etc/php/conf.d/matomo.ini
 
 # Create Msmtp config file
 COPY msmtprc.conf /etc/msmtprc
+RUN sed -i "s/\$MSMTP_OVH_PWD/${MSMTP_OVH_PWD}/g" /etc/msmtprc
 RUN chmod 600 /etc/msmtprc && \
 	chown www-data:www-data /etc/msmtprc
-
 
 # Add /etc/vim/vimrc.local
 RUN echo "runtime! defaults.vim" > /etc/vim/vimrc.local \

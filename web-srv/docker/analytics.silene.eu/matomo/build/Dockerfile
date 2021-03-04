@@ -1,5 +1,5 @@
 FROM matomo:4.2.1-fpm
-# See : https://www.projekt-rootserver.de/matomo-docker-image-erstellen/2019/09/
+# See : https://github.com/matomo-org/docker/blob/master/fpm/Dockerfile
 
 ARG MSMTP_OVH_PWD
 
@@ -13,10 +13,16 @@ RUN apt-get update \
 # Override php.ini properties for Matomo
 COPY matomo.ini /usr/local/etc/php/conf.d/matomo.ini
 
+# Set new entry point from :
+COPY docker-entrypoint.sh /entrypoint.sh
+
+# Set Cron for Matomo archive
+COPY matomo-archive.cron /etc/cron.d/matomo-archive
+
 # Create Msmtp config file
 COPY msmtprc.conf /etc/msmtprc
-RUN sed -i "s/\$MSMTP_OVH_PWD/${MSMTP_OVH_PWD}/g" /etc/msmtprc
-RUN chmod 600 /etc/msmtprc && \
+RUN sed -i "s/\$MSMTP_OVH_PWD/${MSMTP_OVH_PWD}/g" /etc/msmtprc && \
+	chmod 600 /etc/msmtprc && \
 	chown www-data:www-data /etc/msmtprc
 
 # Add /etc/vim/vimrc.local
@@ -27,6 +33,7 @@ RUN echo "runtime! defaults.vim" > /etc/vim/vimrc.local \
 # Uncomment alias from /root/.bashrc
 RUN sed -i 's/^# alias/alias/' /root/.bashrc
 
+VOLUME /var/www/html
 # Use new entry point wrapper
-ENTRYPOINT ["docker-entrypoint.sh"]
+ENTRYPOINT ["/entrypoint.sh"]
 CMD ["php-fpm"]

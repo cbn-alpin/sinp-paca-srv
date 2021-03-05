@@ -6,7 +6,7 @@ ARG MSMTP_OVH_PWD
 # Install utils and sendmail
 RUN apt-get update \
 	&& apt-get install -y --no-install-recommends \
-		apt-utils less vim sudo \
+		apt-utils less vim sudo cron \
 		msmtp msmtp-mta bsd-mailx mailutils \
 	&& rm -rf /var/lib/apt/lists/*
 
@@ -18,6 +18,8 @@ COPY docker-entrypoint.sh /entrypoint.sh
 
 # Set Cron for Matomo archive
 COPY matomo-archive.cron /etc/cron.d/matomo-archive
+RUN  chmod 0644 /etc/cron.d/matomo-archive \
+	&& crontab /etc/cron.d/matomo-archive
 
 # Create Msmtp config file
 COPY msmtprc.conf /etc/msmtprc
@@ -34,6 +36,6 @@ RUN echo "runtime! defaults.vim" > /etc/vim/vimrc.local \
 RUN sed -i 's/^# alias/alias/' /root/.bashrc
 
 VOLUME /var/www/html
-# Use new entry point wrapper
+# Use new entry point wrapper with Cron start
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["php-fpm"]

@@ -6,4 +6,7 @@ if [ ! -e matomo.php ]; then
 	chown -R www-data:www-data .
 fi
 
+# Start cron - Add by jpmilcent
+service cron start
+
 exec "$@"

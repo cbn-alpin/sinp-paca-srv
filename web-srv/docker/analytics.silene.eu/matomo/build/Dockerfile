@@ -17,9 +17,14 @@ COPY matomo.ini /usr/local/etc/php/conf.d/matomo.ini
 COPY docker-entrypoint.sh /entrypoint.sh
 
 # Set Cron for Matomo archive
-COPY matomo-archive.cron /etc/cron.d/matomo-archive
+# DON'T USE dot or dash in cron.d script file name howerer the script will never execute.
+COPY matomo-archive.cron /etc/cron.d/matomo_archive
 RUN  chmod 0644 /etc/cron.d/matomo-archive \
-	&& crontab /etc/cron.d/matomo-archive
+	&& chown root: /etc/cron.d/matomo_archive \
+	&& crontab /etc/cron.d/matomo_archive \
+	&& touch /var/www/html/tmp/logs/matomo-archive.log \
+	&& touch /var/www/html/tmp/logs/matomo-archive-errors.log \
+	&& chown www-data: /var/www/html/tmp/logs/matomo-archive*
 
 # Create Msmtp config file
 COPY msmtprc.conf /etc/msmtprc

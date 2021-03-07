@@ -43,7 +43,7 @@ services:
       - /opt/srvstatus/status.json:/opt/srvstatus/status.json
 
   monitor-grafana:
-    image: grafana/grafana:7.4.2
+    image: grafana/grafana:7.4.3
     # https://hub.docker.com/r/grafana/grafana
     container_name: monitor-grafana
     restart: unless-stopped
@@ -57,6 +57,17 @@ services:
       - nginx-proxy
     volumes:
         - grafana-storage:/var/lib/grafana
+
+  monitor-grafana-renderer:
+    image: grafana/grafana-image-renderer:2.0.1
+    container_name: monitor-grafana-renderer
+    restart: unless-stopped
+    ports:
+      - 8081
+    environment:
+      ENABLE_METRICS: 'true'
+    networks:
+      - nginx-proxy
 
   monitor-grafana-backup:
     image: ysde/docker-grafana-backup-tool:latest

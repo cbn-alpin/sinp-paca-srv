@@ -15,7 +15,7 @@ services:
       - report-storage:/goaccess/reports:ro
 
   web-log-analyser-goaccess:
-    image: allinurl/goaccess:latest
+    image: allinurl/goaccess:1.4.6
     # https://hub.docker.com/r/allinurl/goaccess
     container_name: web-log-analyser-goaccess
     restart: unless-stopped

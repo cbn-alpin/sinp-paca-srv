@@ -64,11 +64,9 @@ appName = "Silene Expert"
     ENABLE_SIGN_UP = true
     AUTO_ACCOUNT_CREATION = false
     VALIDATOR_EMAIL = [
-            "Silene Admin <contact@expert.silene.eu>",
-            "Lucile VAHE <l.vahe@cbn-alpin.fr>",
-            "silene-admin@cbn-alpin.fr",
             "Julie DELAUGE <julie.delauge@cen-paca.org>",
-            "Géraldine KAPFER <geraldine.kapfer@cen-paca.org>"
+            "Géraldine KAPFER <geraldine.kapfer@cen-paca.org>",
+            "silene-admin@cbn-alpin.fr",
         ]
 	AUTO_DATASET_CREATION = false
     ENABLE_USER_MANAGEMENT = true
@@ -99,10 +97,8 @@ appName = "Silene Expert"
         class = "alert alert-primary"
         html = """
             <p>Merci pour votre demande d’inscription. Après validation par l’administrateur, vous
-            pourrez accéder aux observations publiques avec leur précision de géolocalisation
-            maximale. La  géolocalisation des autres observations peut être dégradée suite à
-            l’application des règles de confidentialité du SINP (données privées et données sensibles).</p>
-            <p>L'accès à ces données avec leur précision maximale nécessite, dans Silene, de compléter
+			pourrez accéder à l'ensemble des données à l'échelle de la maille 5x5km.</p>
+            <p>L'accès aux données avec leur précision maximale nécessite, dans Silene, de compléter
             un « formulaire de demande d’accès aux données précises ».
             L'accord sera formalisé par l’acceptation d'une convention « droit d'accès aux données
             précises » et donnera lieu à l'attribution d'un accès direct à ces données. La
@@ -172,7 +168,7 @@ appName = "Silene Expert"
     EXPORT_ID_SYNTHESE_COL = "id_synthese"
     EXPORT_ID_DATASET_COL = "jdd_id"
     EXPORT_ID_DIGITISER_COL = "id_digitiser"
-    EXPORT_OBSERVERS_COL = "observateur"
+    EXPORT_OBSERVERS_COL = "observateurs"
     EXPORT_GEOJSON_4326_COL = "geojson_4326"
     EXPORT_GEOJSON_LOCAL_COL = "geojson_local"
 
@@ -185,19 +181,18 @@ appName = "Silene Expert"
     EXPORT_COLUMNS = [
         "uuid_perm_sinp",
         "uuid_perm_grp_sinp",
+		"ca_nom",
         "jdd_nom",
         "jdd_uuid",
         "niveau_validation",
         "validateur",
         "observateurs",
-        "cd_nom",
-        "nom_cite",
+        "cd_ref",
+        "nom_valide",
         "nombre_min",
         "nombre_max",
         "date_debut",
-        "heure_debut",
         "date_fin",
-        "heure_fin",
         "geojson_4326",
         "precision_geographique",
         "niveau_precision_diffusion",
@@ -211,18 +206,16 @@ appName = "Silene Expert"
     # cette instance de GeoNature
     DATA_ACCESS_RULES_LINK = "https://silene.eu/"
     # Types zones géo formulaire de demande d'accès.
-    AREA_TYPES = [25, 26]
+    AREA_TYPES = [25, 26, 34]
     # Durée minimum en jour pendant laquelle l'accès est autorisé.
-    DEFAULT_ACCESS_DURATION = 90
+    DEFAULT_ACCESS_DURATION = 30
     # Durée maximum en jour pendant laquelle l'accès peut être autorisé.
-    MAX_ACCESS_DURATION = 730
+    MAX_ACCESS_DURATION = 1095
     # Email du validateur des permissions d'accès.
     VALIDATOR_EMAIL = [
-            "Jean-Pascal MILCENT <jp.milcent@cbn-alpin.fr>",
-            "Lucile VAHE <l.vahe@cbn-alpin.fr>",
-            "silene-admin@cbn-alpin.fr",
             "Julie DELAUGE <julie.delauge@cen-paca.org>",
-            "Géraldine KAPFER <geraldine.kapfer@cen-paca.org>"
+            "Géraldine KAPFER <geraldine.kapfer@cen-paca.org>",
+            "silene-admin@cbn-alpin.fr",
         ]
 
     # Activer la validation de la convention suite à une demande d'accès
@@ -302,12 +295,12 @@ appName = "Silene Expert"
             {level = "0", area = "M5"},# Standard
             {level = "1", area = "M5"},# Commune
             {level = "2", area = "M5"},# Maille
-            {level = "3", area = "M10"},# Département
+            {level = "3", area = "M5"},# Département
         ]
     # Correspondance entre les niveau de sensibilité (nomenclaure SENSIBILITE)
     # et un type de zone géographique utilisée pour le rendu sur les cartes.
     AREA_TYPE_FOR_SENSITIVITY_LEVELS = [
-            {level = "1", area = "M5"},# Commune
-            {level = "2", area = "M5"},# Maille
+            {level = "1", area = "M10"},# Commune
+            {level = "2", area = "M10"},# Maille
             {level = "3", area = "M10"},# Département
         ]

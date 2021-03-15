@@ -10,8 +10,8 @@ PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 #MAILFROM=mailer@silene.eu
 
 # GeoNature DB - Each day at 00:10AM
-10 0 * * * admin /home/admin/bin/backup_gnatlas.sh 2>&1 | mail -s "[Cron] <admin@sinp-paca-db> - Backup gnatlas" -r "mailer@silene.eu" adminsys@silene.eu
+10 0 * * * admin /home/admin/bin/backup_gnatlas.sh 2>&1 | mail -s "[Cron] Backups - DB gnatlas" -r "mailer@silene.eu" adminsys@silene.eu
 # GeoNature-Atlas DB - Each day at 00:30AM
-20 0 * * * admin /home/admin/bin/backup_geonature2db.sh 2>&1 | mail -s "[Cron] <admin@sinp-paca-db> - Backup geonature2db" -r "mailer@silene.eu" adminsys@silene.eu
+20 0 * * * admin /home/admin/bin/backup_geonature2db.sh 2>&1 | mail -s "[Cron] Backups - DB geonature2db" -r "mailer@silene.eu" adminsys@silene.eu
 # System - Each day at 01:00AM
-00 1 * * * admin /home/admin/bin/backup_system.sh 2>&1 | mail -s "[Cron] <admin@sinp-paca-db> - Backup System" -r "mailer@silene.eu" adminsys@silene.eu
+00 1 * * * admin /home/admin/bin/backup_system.sh 2>&1 | mail -s "[Cron] Backups - System DB" -r "mailer@silene.eu" adminsys@silene.eu

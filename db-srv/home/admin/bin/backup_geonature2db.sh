@@ -12,7 +12,8 @@ email_to="adminsys@silene.eu"
 
 bkp_dir="/home/admin/backups/postgresql"
 bkp_name="$(date +%F)_${db_name}"
-bkp_path="${bkp_dir}/${bkp_name}"
+bkp_file="${bkp_name}/"
+bkp_path="${bkp_dir}/${bkp_file}"
 bkp_log="/tmp/pgdump_${db_name}.log"
 
 
@@ -35,10 +36,10 @@ pg_dump --file "${bkp_path}" \
 dump_status=$?
 
 # Create a tar not compresseed (already done by dump)
-tar -cvf "${bkp_name}.tar" -C "${bkp_dir}" "${bkp_name}/"
+tar -cvf "${bkp_name}.tar" -C "${bkp_dir}" "${bkp_file}"
 
 # Clean temp file and old dumps
-rm -fR "${bkp_name}/"
+rm -fR "${bkp_file}"
 find "${bkp_dir}" -name "*_${db_name}.tar" -type f -mtime +5 -exec rm -f {} \;
 
 echo "End at $(date '+%Y-%m-%d %T')" > ${bkp_log}

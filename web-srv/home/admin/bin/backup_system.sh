@@ -78,7 +78,7 @@ for file in "${local_files[@]}"; do
 		echo "Keeping: ${file}"
 	else
 		echo "Deleting: ${file}"
-		rm -f "${file}"
+		rm -f "${bkp_dest}/${file}"
 	fi
 done
 

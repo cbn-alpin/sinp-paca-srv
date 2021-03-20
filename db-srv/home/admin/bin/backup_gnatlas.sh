@@ -34,7 +34,7 @@ pg_dump --file "${bkp_path}" \
 dump_status=$?
 
 # Create a tar not compresseed (already done by dump)
-tar -cvf "${bkp_name}.tar" -C "${bkp_dir}" "${bkp_file}"
+tar -cf "${bkp_name}.tar" -C "${bkp_dir}" "${bkp_file}"
 
 # Clean temp file and old dumps
 rm -fR "${bkp_file}"

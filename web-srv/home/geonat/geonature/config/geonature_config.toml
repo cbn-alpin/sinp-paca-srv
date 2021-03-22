@@ -202,6 +202,8 @@ appName = "Silene Expert"
     # Activer (=true) l'affichage du lien vers le formulaire de demande
     # de permissions. Par défaut : désactivé (=false).
     ENABLE_ACCESS_REQUEST = true
+	# Activer la possibilité de demander l'accès aux données sensibles.
+    ENABLE_SENSITIVE_ACCESS = false
     # Lien vers les règles d'accès aux observations sensibles propres à
     # cette instance de GeoNature
     DATA_ACCESS_RULES_LINK = "https://silene.eu/"

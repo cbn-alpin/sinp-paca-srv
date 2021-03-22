@@ -232,6 +232,14 @@ appName = "Silene Expert"
     # Définition de la section personnalisable du formulaire de demande
     # de permission d'accès.
     [[PERMISSION_MANAGEMENT.REQUEST_FORM]]
+        type_widget = "html"
+        attribut_name = "motivationIntro"
+        html = """
+            <small class="form-text text-muted">
+                Veuillez décrire ci-dessous les motivations à l'origine
+                de votre demande.
+            </small>"""
+    [[PERMISSION_MANAGEMENT.REQUEST_FORM]]
         type_widget = "select"
         attribut_label = "Règne concerné"
         attribut_name = "kingdom"
@@ -242,14 +250,17 @@ appName = "Silene Expert"
             "Animal",
             "Végétal et Animal"]
         required = true
+        help = """Veuillez indiquer le règne des taxons
+            concernés par votre étude et pour lesquels vous demandez
+            un accès précis."""
     [[PERMISSION_MANAGEMENT.REQUEST_FORM]]
-        type_widget = "html"
-        attribut_name = "motivationIntro"
-        html = """
-            <small class="form-text text-muted">
-                Veuillez décrire ci-dessous les motivations à l'origine
-                de votre demande.
-            </small>"""
+        type_widget = "text"
+        attribut_label = "Organisme"
+        attribut_name = "userOrganism"
+        icon = "business"
+        required = true
+        help = """Veuillez indiquer le nom de l'organisme auquel vous
+            appartenez."""
     [[PERMISSION_MANAGEMENT.REQUEST_FORM]]
         type_widget = "select"
         attribut_label = "Type d'étude ou de projet"

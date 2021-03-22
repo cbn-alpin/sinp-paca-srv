@@ -68,16 +68,20 @@ appName = "Silene Expert"
             "Géraldine KAPFER <geraldine.kapfer@cen-paca.org>",
             "silene-admin@cbn-alpin.fr",
         ]
-	AUTO_DATASET_CREATION = false
+    AUTO_DATASET_CREATION = false
     ENABLE_USER_MANAGEMENT = true
     ADDON_USER_EMAIL = """<p>
         Nous vous rappelons que cette inscription vous donne accès à la
         consultation des données publiques versées dans Silene.<br />
         L’accès aux autres données nécessite de compléter un
-        « <a href="https://expert.silene.eu/\u0023/permissions/requests/add">formulaire de demande d‘accès aux données précises</a> ».<br/>
-        L'accord sera formalisé par l’acceptation d'une convention
-        « droit d'accès aux données précises » et donnera lieu
-        à l'attribution d'un accès direct à ces données.<br />
+        « <a href="https://expert.silene.eu/\u0023/permissions/requests/add">
+            formulaire de demande d‘accès aux données précises
+        </a> ».<br/>
+        L'accord sera formalisé par l’acceptation d'
+        <a href="https://silene.eu/charte-et-conventions\u0023convention-acces-ponctuel">
+            une convention « droit d'accès aux données précises »
+        </a>
+        et donnera lieu à l'attribution d'un accès direct à ces données.<br />
         La convention engage le titulaire au bon usage des données
         et à <a href="https://silene.eu/contribuer/">une alimentation de Silene</a>
         en retour.
@@ -97,13 +101,19 @@ appName = "Silene Expert"
         class = "alert alert-primary"
         html = """
             <p>Merci pour votre demande d’inscription. Après validation par l’administrateur, vous
-			pourrez accéder à l'ensemble des données à l'échelle de la maille 5x5km.</p>
+            pourrez accéder à l'ensemble des données à l'échelle de la maille 5x5km.</p>
             <p>L'accès aux données avec leur précision maximale nécessite, dans Silene, de compléter
             un « formulaire de demande d’accès aux données précises ».
-            L'accord sera formalisé par l’acceptation d'une convention « droit d'accès aux données
-            précises » et donnera lieu à l'attribution d'un accès direct à ces données. La
+            L'accord sera formalisé par l’acceptation d'
+            <a href="https://silene.eu/charte-et-conventions\u0023convention-acces-ponctuel" target="_blank">
+                une convention « droit d'accès aux données précises »
+            </a>
+            et donnera lieu à l'attribution d'un accès direct à ces données. La
             convention  engage le titulaire à un bon usage des données et à
-            <a href="https://silene.eu/contribuer/">une alimentation de Silene en retour</a>.</p>
+            <a href="https://silene.eu/contribuer/" target="_blank">
+                une alimentation de Silene en retour
+            </a>.
+            </p>
             <p>Les autorisations d'accès sont gérées par les administrateurs de données s'appuyant sur
             le Comité d’administrateurs de Silene.</p>
             <p>Les données et informations qui vous sont fournies dans le cadre de Silene ne sont pas
@@ -181,7 +191,7 @@ appName = "Silene Expert"
     EXPORT_COLUMNS = [
         "uuid_perm_sinp",
         "uuid_perm_grp_sinp",
-		"ca_nom",
+        "ca_nom",
         "jdd_nom",
         "jdd_uuid",
         "niveau_validation",
@@ -202,7 +212,7 @@ appName = "Silene Expert"
     # Activer (=true) l'affichage du lien vers le formulaire de demande
     # de permissions. Par défaut : désactivé (=false).
     ENABLE_ACCESS_REQUEST = true
-	# Activer la possibilité de demander l'accès aux données sensibles.
+    # Activer la possibilité de demander l'accès aux données sensibles.
     ENABLE_SENSITIVE_ACCESS = false
     # Lien vers les règles d'accès aux observations sensibles propres à
     # cette instance de GeoNature

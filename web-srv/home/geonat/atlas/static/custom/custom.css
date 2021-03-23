@@ -79,3 +79,8 @@ a.btn.btn-default:hover{
 .affix {
     top: 60px; /* Set the top position of pinned element */
 }
+
+/* MENTIONS LÉGALES */
+blockquote footer {
+	margin: 0;
+}

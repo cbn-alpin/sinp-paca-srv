@@ -38,7 +38,7 @@ tar -cf "${bkp_name}.tar" -C "${bkp_dir}" "${bkp_file}"
 
 # Clean temp file and old dumps
 rm -fR "${bkp_file}"
-find "${bkp_dir}" -name "*_${db_name}.tar" -type f -mtime +365 -exec rm -f {} \;
+find "${bkp_dir}" -name "*_${db_name}.tar" -type f -mtime +5 -exec rm -f {} \;
 
 echo "End at $(date '+%Y-%m-%d %T')" >> ${bkp_log}
 

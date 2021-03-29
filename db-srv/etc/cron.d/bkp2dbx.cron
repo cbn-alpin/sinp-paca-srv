@@ -7,7 +7,7 @@ SHELL=/bin/bash
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 # MAILFROM doesn't work now, use alternative below
 #MAILTO=adminsys@silene.eu
-#MAILFROM=mailer@cbn-alpin.fr
+#MAILFROM=mailer@silene.eu
 
 # System DB
 0 2 * * * admin /opt/bkp2dbx/sync2dbx.sh "/home/admin/.dropbox_uploader" "system-db" "/home/admin/backups/system/*.tar.bz2" 2>&1 | mail -s "[Cron] Bkp2dbx - System DB" -r "mailer@silene.eu" adminsys@silene.eu

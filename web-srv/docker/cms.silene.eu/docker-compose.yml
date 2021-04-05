@@ -118,7 +118,7 @@ services:
       - ./backup/:/backup
       - ./volumerize/docker-entrypoint.sh:/opt/volumerize/docker-entrypoint.sh
       - local-backup-cache-storage:/volumerize-cache/local
-      - dropbox-backup-cache-storage://volumerize-cache/dropbox
+      - dropbox-backup-cache-storage:/volumerize-cache/dropbox
       - wordpress-storage:/source/cms-wordpress:ro
       - db-storage:/source/cms-mariadb:ro
 

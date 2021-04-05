@@ -3,7 +3,7 @@ version: "3.7"
 services:
 
   wiki-sinp-nginx:
-    image: nginx:1.16.1
+    image: nginx:1.18.0
     # https://hub.docker.com/_/nginx
     container_name: wiki-sinp-nginx
     restart: unless-stopped
@@ -24,10 +24,13 @@ services:
       context: ./dokuwiki/build
       dockerfile: Dockerfile
       args:
-        BACKUP_DATE: "2020-02-12"
-    image: dokuwiki:2018-04-22b-php7.3.14-fpm
+        # To load backup, uncomment line in dockerfile and set a date instead of "None"
+        BACKUP_DATE: "None"
+        MSMTP_OVH_PWD: "${MSMTP_OVH_PWD}"
+    image: dokuwiki:2020-07-29-php7.4.16-fpm-buster
     # https://hub.docker.com/_/php
     container_name: wiki-sinp-dokuwiki
+    env_file: .env
     restart: unless-stopped
     expose:
       - 9000
@@ -39,7 +42,7 @@ services:
       - tpl-dokuwiki-storage:/var/www/html/lib/tpl/
 
   wiki-sinp-volumerize:
-    image: blacklabelops/volumerize:1.5.1
+    image: blacklabelops/volumerize:1.6
     # https://hub.docker.com/r/blacklabelops/volumerize/tags
     container_name: wiki-sinp-volumerize
     restart: unless-stopped

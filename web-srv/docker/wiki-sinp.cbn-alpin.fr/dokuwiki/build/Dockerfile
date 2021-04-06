@@ -7,8 +7,10 @@ LABEL author="Jean-Pascal MILCENT" \
 ARG BACKUP_DATE
 ARG MSMTP_OVH_PWD
 
-ENV DW_VERSION=2020-07-29
-ENV DW_DOWNLOAD_URL=https://download.dokuwiki.org/src/dokuwiki/dokuwiki-${DW_VERSION}.tgz
+ENV DW_VERSION_DATE=2020-07-29
+ENV DW_VERSION_NAME="Hogfather"
+ENV DW_VERSION=${DW_VERSION_DATE}' "'${DW_VERSION_NAME}'"'
+ENV DW_DOWNLOAD_URL=https://download.dokuwiki.org/src/dokuwiki/dokuwiki-${DW_VERSION_DATE}.tgz
 ENV DW_MD5_CHECKSUM=8867b6a5d71ecb5203402fe5e8fa18c9
 ENV HTML_PATH /var/www/html
 
@@ -62,14 +64,15 @@ RUN tar zxvf dokuwiki.tgz
 RUN ls -al
 RUN rm -f dokuwiki.tgz
 
-RUN 'cp' -af dokuwiki-${DW_VERSION}/* ${HTML_PATH}/
-#RUN rm -fR dokuwiki-${DW_VERSION}/
+RUN 'cp' -af dokuwiki-${DW_VERSION_DATE}/* ${HTML_PATH}/
+#RUN rm -fR dokuwiki-${DW_VERSION_DATE}/
 #ADD ./${BACKUP_DATE}_wiki-sinp_backup.tar.bz2 ${HTML_PATH}
 RUN chown -R www-data: ${HTML_PATH}
 
 # Copy entrypoint script. Entypoint script upgade Dokuwiki files in named Volume
 COPY dokuwiki-entrypoint.sh /usr/local/bin/
-RUN sed -i "s#\${DW_VERSION}#${DW_VERSION}#g" /usr/local/bin/dokuwiki-entrypoint.sh && \
+RUN sed -i "s#\${DW_VERSION_DATE}#${DW_VERSION_DATE}#g" /usr/local/bin/dokuwiki-entrypoint.sh && \
+	sed -i "s#\${DW_VERSION}#${DW_VERSION}#g" /usr/local/bin/dokuwiki-entrypoint.sh && \
 	sed -i "s#\${HTML_PATH}#${HTML_PATH}#g" /usr/local/bin/dokuwiki-entrypoint.sh
 ENTRYPOINT ["/usr/local/bin/dokuwiki-entrypoint.sh", "docker-php-entrypoint"]
 CMD ["php-fpm"]

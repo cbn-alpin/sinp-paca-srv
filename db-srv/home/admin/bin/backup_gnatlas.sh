@@ -7,7 +7,7 @@ db_user="geonatatlas"
 db_host="localhost"
 db_port="5432"
 
-email_from="mailer@silen.eu"
+email_from="mailer@silene.eu"
 email_to="adminsys@silene.eu"
 
 bkp_dir="/home/admin/backups/postgresql"

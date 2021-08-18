@@ -7,7 +7,7 @@ db_user="geonatadmin"
 db_host="localhost"
 db_port="5432"
 
-email_from="mailer@silen.eu"
+email_from="mailer@silene.eu"
 email_to="adminsys@silene.eu"
 
 bkp_dir="/home/admin/backups/postgresql"
@@ -42,7 +42,7 @@ tar -cf "${bkp_name}.tar" -C "${bkp_dir}" "${bkp_file}"
 rm -fR "${bkp_file}"
 find "${bkp_dir}" -name "*_${db_name}.tar" -type f -mtime +5 -exec rm -f {} \;
 
-echo "End at $(date '+%Y-%m-%d %T')" > ${bkp_log}
+echo "End at $(date '+%Y-%m-%d %T')" >> ${bkp_log}
 
 # Send email if something goes wrong with dump
 if [[ ${dump_status} -ne 0 ]] ; then

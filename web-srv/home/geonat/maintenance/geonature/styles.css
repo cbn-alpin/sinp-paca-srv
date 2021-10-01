@@ -8,7 +8,7 @@ body {
 	display: flex;
 	align-items: start;
 	justify-content: start;
-	height: 98vh;
+	height: calc(100vh - 16px);
 	background: url('background.webp') no-repeat center center fixed;
 	background-size: cover;
 }
@@ -33,6 +33,10 @@ h1 {
 }
 .logo {
 	float: right;
+	background: rgba(245,245,245,.7);
+	height: 130px;
+	border-radius: 50%;
+	padding: 10px;
 }
 .info {
 	font-size: 1.2rem;

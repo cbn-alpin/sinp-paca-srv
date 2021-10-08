@@ -18,7 +18,7 @@ services:
     build:
       context: ./wordpress/build
       dockerfile: Dockerfile
-    image: wordpress:5.6.2-php7.4-fpm
+    image: wordpress:5.7.2-php7.4-fpm
     # https://hub.docker.com/_/wordpress
     container_name: cms-wordpress
     restart: unless-stopped
@@ -44,7 +44,7 @@ services:
       - ./wordpress/home:/home/wp
 
   cms-wp-cli:
-    image: wordpress:cli-2.4.0-php7.4
+    image: wordpress:cli-2.5.0-php7.4
     # https://hub.docker.com/_/wordpress
     container_name: cms-wp-cli
     restart: "no"
@@ -75,7 +75,7 @@ services:
       #- ./database/initdb.d/:/docker-entrypoint-initdb.d/
 
   cms-adminer:
-    image: adminer:4.8.0-standalone
+    image: adminer:4.8.1-standalone
     # https://hub.docker.com/_/adminer
     container_name: cms-adminer
     restart: unless-stopped

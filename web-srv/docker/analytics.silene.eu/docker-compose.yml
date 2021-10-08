@@ -18,7 +18,7 @@ services:
     build:
       context: ./matomo/build
       dockerfile: Dockerfile
-    image: matomo:4.2.1-fpm
+    image: matomo:4.4.1-fpm
     # https://hub.docker.com/_/matomo
     container_name: analytics-matomo
     restart: unless-stopped

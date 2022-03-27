@@ -36,9 +36,6 @@ VERSION_LOCATIONS = "/home/geonat/www/usershub/app/migrations/versions/"
 ###### compléter les sections ci-dessous à partir du modèle default_config.toml.example
 #######################################################################################
 
-# Configuration liée aux ID de BDD
-#[BDD]
-
 # Configuration de l'envoie d'emails
 [MAIL_CONFIG]
     MAIL_SERVER = "ssl0.ovh.net"
@@ -126,6 +123,10 @@ VERSION_LOCATIONS = "/home/geonat/www/usershub/app/migrations/versions/"
 [FRONTEND]
     # Affiche la carte des 100 obs sur la page d'accueil
     DISPLAY_MAP_LAST_OBS = false
+
+    # Durée de vie du cache des stats de la page d'accueil
+    # 864 000 = 10 jours
+    STAT_BLOC_TTL = 864000
 
     # Affiche le composant 'custom/components/footer' sur la page d'accueil
     DISPLAY_FOOTER = true

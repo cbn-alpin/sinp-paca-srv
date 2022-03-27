@@ -1,100 +1,64 @@
-<!-- Réalisée à partir de https://startbootstrap.com/template-overviews/one-page-wonder/ et http://getbootstrap.com/examples/carousel/ -->
-<!DOCTYPE html>
-<html>
-   <head>
-        <meta charset="utf-8" />
-        <title>Présentation de l'atlas | {{configuration.NOM_APPLICATION}} - {{configuration.STRUCTURE}}</title>
+{% extends "templates/core/layout.html" %}
 
-        <!-- Jquery -->
-        <script type=text/javascript src="{{url_for('static', filename='lib/jquery-1.12.4.min.js') }}"></script>
-		<script type=text/javascript src="{{url_for('static', filename='lib/jquery-ui.min.js') }}"></script>
-        <link rel="stylesheet" href="{{url_for('static', filename='lib/jquery-ui.css') }}" />
+{% block title %}
+{{ _('atlas.presentation') }}
+{% endblock %}
 
-        <!-- Bootstrap -->
-        <link rel="stylesheet" href="{{url_for('static', filename='lib/bootstrap/css/bootstrap.min.css') }}"></link>
-        <script type=text/javascript src="{{url_for('static', filename='lib/bootstrap/js/bootstrap.min.js') }}"></script>
+{% block content %}
+	<div class="container-fluid" id="page">
+  	<div class="container presentation">
+			<div class="col-lg-12">
+				<h2 id="general">Présentation de Silene Nature</h2>
+				<p>
+					Depuis 2007, la plateforme Silene recueille des données faune et
+					flore sur l’ensemble de la région Provence-Alpes-Côte d’Azur. Elles sont
+					issues de nombreux observateurs, professionnels ou amateurs, animés par la
+					même volonté de rendre accessible gratuitement la donnée naturaliste au plus
+					grand nombre.
+				</p>
+				<p>
+					Qu’elles soient historiques, issues de protocoles de suivis, ou d’observations
+					ponctuelles, ces données sont utilisées pour mieux connaître la biodiversité,
+					suivre les évolutions des espèces fragiles ou patrimoniales, tenter de
+					répondre à des questions d’actualité telles que la réaction de certaines
+					espèces face aux changements climatiques en cours etc.
+				</p>
+				<p>
+					Silene Nature permet à tout un chacun de connaître la biodiversité de sa
+					commune, d’appréhender la répartition régionale des espèces qui fréquentent
+					son lieu de vie et de prendre en compte cette biodiversité dans les choix
+					d’aujourd’hui et de demain.
+				</p>
 
-        <!-- Atlas -->
-        <link rel="shortcut icon" href="{{ url_for('static', filename='custom/images/favicon.ico') }}">
-        <link rel="stylesheet" href="{{url_for('static', filename='css/atlas.css') }}" />
-        <link rel="stylesheet" href="{{url_for('static', filename='css/static_pages.css') }}" />
-        <link rel="stylesheet" href="{{url_for('static', filename='custom/custom.css') }}" />
-
-   </head>
-   <body  data-spy="scroll" data-target="#sommaire">
-    {% include 'templates/navbar.html' %}
-
-		<div id="sideBar">
-			{% include 'templates/sideBar.html' %}
-		</div>
-		<div class="container-fluid" id="page">
-            <div class="container presentation">
-				<div class="col-lg-12">
-					<div class="panel panel-default">
-						<h2 id="general">Présentation de Silene Nature</h2>
-						<p>
-							Depuis 2007, la plateforme Silene recueille des données faune et
-							flore sur l’ensemble de la région Provence-Alpes-Côte d’Azur. Elles sont
-							issues de nombreux observateurs, professionnels ou amateurs, animés par la
-							même volonté de rendre accessible gratuitement la donnée naturaliste au plus
-							grand nombre.
-						</p>
-						<p>
-							Qu’elles soient historiques, issues de protocoles de suivis, ou d’observations
-							ponctuelles, ces données sont utilisées pour mieux connaître la biodiversité,
-							suivre les évolutions des espèces fragiles ou patrimoniales, tenter de
-							répondre à des questions d’actualité telles que la réaction de certaines
-							espèces face aux changements climatiques en cours etc.
-						</p>
-						<p>
-							Silene Nature permet à tout un chacun de connaître la biodiversité de sa
-							commune, d’appréhender la répartition régionale des espèces qui fréquentent
-							son lieu de vie et de prendre en compte cette biodiversité dans les choix
-							d’aujourd’hui et de demain.
-						</p>
-
-						<h3>Un territoire d’exception</h3>
-						<p>
-							Des plages de sables méditerranéennes aux glaciers alpins, la région
-							Provence-Alpes-Côte d’Azur offre une très grande diversité de paysages,
-							abritant chacun une flore et une faune qui lui est propre. C’est ainsi que
-							les six départements de la région font partie des territoires les plus
-							riches en nombre d’espèces de France métropolitaine.
-						</p>
-						<p class="text-center">
-							<img src="{{url_for('static', filename='custom/images/biodiversite-en-france.png') }}"
-								alt="Carte de france de la biodiversité par département" />
-							<br/>
-							<small>
-								Source : INPN 2020. La biodiversité en France — 100 chiffres expliqués sur les espèces.
-								UMS PatriNat (OFB-CNRS-MNHN), Paris, 48 p.
-							</small>
-						</p>
-						<p>
-							Le grand nombre d’espèces endémiques (espèce animale ou végétale présente
-							dans une aire de répartition limitée et qui en est caractéristique) est
-							également une spécificité de la région. Le mont Ventoux, les coussouls de
-							Crau ou encore le Mercantour, accueillent des être vivants qui ne se
-							rencontrent nul par ailleurs sur notre planète !
-						</p>
-						<p>
-							Ainsi, la responsabilité de la région est grande, vis-à-vis de la
-							biodiversité, et Silene Nature est l’outil qui en permet la lecture.
-						</p>
-					</div>
-				</div>
+				<h3>Un territoire d’exception</h3>
+				<p>
+					Des plages de sables méditerranéennes aux glaciers alpins, la région
+					Provence-Alpes-Côte d’Azur offre une très grande diversité de paysages,
+					abritant chacun une flore et une faune qui lui est propre. C’est ainsi que
+					les six départements de la région font partie des territoires les plus
+					riches en nombre d’espèces de France métropolitaine.
+				</p>
+				<p class="text-center">
+					<img src="{{url_for('static', filename='custom/images/biodiversite-en-france.png') }}"
+						alt="Carte de france de la biodiversité par département" />
+					<br/>
+					<small>
+						Source : INPN 2020. La biodiversité en France — 100 chiffres expliqués sur les espèces.
+						UMS PatriNat (OFB-CNRS-MNHN), Paris, 48 p.
+					</small>
+				</p>
+				<p>
+					Le grand nombre d’espèces endémiques (espèce animale ou végétale présente
+					dans une aire de répartition limitée et qui en est caractéristique) est
+					également une spécificité de la région. Le mont Ventoux, les coussouls de
+					Crau ou encore le Mercantour, accueillent des être vivants qui ne se
+					rencontrent nul par ailleurs sur notre planète !
+				</p>
+				<p>
+					Ainsi, la responsabilité de la région est grande, vis-à-vis de la
+					biodiversité, et Silene Nature est l’outil qui en permet la lecture.
+				</p>
 			</div>
-        </div>
-
-		{% if configuration.AFFICHAGE_FOOTER %}
-			{% include 'static/custom/templates/footer.html' %}
-		{% endif %}
-
-        <script type="text/javascript">
-        var configuration = {{configuration|tojson}};
-        </script>
-
-        <script src="{{url_for('static', filename='main.js') }}"></script>
-
-   </body>
-</html>
+		</div>
+	</div>
+{% endblock %}

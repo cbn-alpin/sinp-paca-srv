@@ -19,9 +19,6 @@ API_TAXHUB = "https://taxhub.silene.eu/api"
 # Remplacer par une clé alétoire complexe
 SECRET_KEY = "<secret-key>"
 
-# Code EPSG des geométries dans la BDD
-LOCAL_SRID = "2154"
-
 # Langue principale par défaut
 DEFAULT_LANGUAGE = "fr"
 
@@ -30,6 +27,9 @@ MAIL_ON_ERROR = true
 
 # Nom de l'application dans la page d'accueil.
 appName = "Silene Expert"
+
+[ALEMBIC]
+VERSION_LOCATIONS = "/home/geonat/www/usershub/app/migrations/versions/"
 
 #######################################################################################
 ###### Si vous souhaitez surcoucher certains paramètres,
@@ -153,11 +153,11 @@ appName = "Silene Expert"
 
 # Configuration de la Synthese
 [SYNTHESE]
-    # Liste des entités géographiques sur lesquelles les filtres géographiques de la synthese s'appuient 
+    # Liste des entités géographiques sur lesquelles les filtres géographiques de la synthese s'appuient
     # (id_area = id de l'entité géo, table ref_geo.bib_areas_types).
-    AREA_FILTERS = [ 
-        { label = "Communes", id_type = 25 },
-        { label = "Départements", id_type = 26 },
+    AREA_FILTERS = [
+        { label = "Communes", type_code = "COM" },
+        { label = "Départements", type_code = "DEP" },
     ]
     # Nombre d'observation maximum à afficher sur la carte après une recherche
     NB_MAX_OBS_MAP = 100000
@@ -190,7 +190,6 @@ appName = "Silene Expert"
 
     # Noms des colonnes obligatoires de la vue ``gn_synthese.v_metadata_for_export``
     EXPORT_METADATA_ID_DATASET_COL = "jdd_id"
-    EXPORT_METADATA_ACTOR_COL = "acteurs"
 
     # Champs à afficher dans l'export
     # Voir les noms des champs de la ``vue gn_synthese.v_synthese_for_export``
@@ -205,6 +204,7 @@ appName = "Silene Expert"
         "nom_valide",
         "nom_vernaculaire",
         "classe",
+        "famille",
         "ordre",
         "nombre_min",
         "nombre_max",
@@ -214,7 +214,7 @@ appName = "Silene Expert"
         "x_centroid_4326",
         "y_centroid_4326",
         "precision_geographique",
-        "nature_objet_geo",
+        "type_precision",
         "communes",
         "alti_min",
         "technique_observation",
@@ -223,6 +223,8 @@ appName = "Silene Expert"
         "sexe",
         "comportement",
         "type_source",
+        "sensibilite",
+        "confidentialite",
     ]
 
 [PERMISSION_MANAGEMENT]
@@ -230,12 +232,12 @@ appName = "Silene Expert"
     # de permissions. Par défaut : désactivé (=false).
     ENABLE_ACCESS_REQUEST = true
     # Activer la possibilité de demander l'accès aux données sensibles.
-    ENABLE_SENSITIVE_ACCESS = false
+    ENABLE_SENSITIVE_ACCESS = true
     # Lien vers les règles d'accès aux observations sensibles propres à
     # cette instance de GeoNature
-    DATA_ACCESS_RULES_LINK = "https://silene.eu/"
+    #DATA_ACCESS_RULES_LINK = "https://silene.eu/wp-content/uploads/2022/03/ReglesAccesDSFlore-2022-VF.pdf"
     # Types zones géo formulaire de demande d'accès.
-    AREA_TYPES = [25, 26, 34]
+    AREA_TYPES = ["COM", "DEP", "SINP"]
     # Durée minimum en jour pendant laquelle l'accès est autorisé.
     DEFAULT_ACCESS_DURATION = 30
     # Durée maximum en jour pendant laquelle l'accès peut être autorisé.

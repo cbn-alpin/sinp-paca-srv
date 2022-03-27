@@ -1,5 +1,9 @@
 # -*- coding:utf-8 -*-
 
+##############################
+## Fichier de configuration ##
+##############################
+
 # Mettre l'application en mode debug ou pas
 modeDebug = False
 
@@ -24,6 +28,46 @@ NOM_APPLICATION = "Silene Nature"
 # ex "/atlas" pour une URL: http://mon-domaine/atlas OU "" si l'application est accessible à la racine du domaine
 URL_APPLICATION = ""
 
+#################################
+#################################
+###### Modules activation #######
+#################################
+#################################
+
+# Enable organism module : organism sheet + organism participation on species sheet
+ORGANISM_MODULE = False
+
+###########################
+###### Multilingual #######
+###########################
+
+# Default language, also used when multilingual is disabled
+DEFAULT_LANGUAGE = 'fr'
+
+# Activate multilingual
+MULTILINGUAL = False
+
+# Available languages
+# Don't delete, even if you disable MULTILINGUAL
+# You need to add your own default language (DEFAULT_LANGUAGE) here if it's not present
+# Check documentation to add another language
+LANGUAGES = {
+    'en': {
+        'name' : 'English',
+        'flag_icon' : 'flag-icon-gb',
+        'months' : ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+        },
+    'fr': {
+        'name' : 'Français',
+        'flag_icon' : 'flag-icon-fr',
+        'months' : ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Decembre']
+        },
+    'it': {
+        'name' : 'Italiano',
+        'flag_icon' : 'flag-icon-it',
+        'months' : ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre']
+        }
+}
 
 ###########################
 ###### CARTOGRAPHIE #######
@@ -89,6 +133,12 @@ AFFICHAGE_DERNIERES_OBS = False
 # Bloc avec espèces à voir en ce moment. Affichage True/False
 AFFICHAGE_EN_CE_MOMENT = True
 
+# Bloc des logos des partenaires
+AFFICHAGE_LOGOS_HOME = False
+
+# Bloc des nouvelles espèces
+AFFICHAGE_NOUVELLES_ESPECES = False
+
 # Bloc stats par rangs
 AFFICHAGE_RANG_STAT = True
 COLONNES_RANG_STAT = 4
@@ -131,6 +181,18 @@ SPLIT_NOM_VERN = True
 # Permet de lister les pages statiques souhaitées et de les afficher dynamiquement dans le menu sidebar
 # Les pictos se limitent au Glyphicon proposés par Bootstrap (https://getbootstrap.com/docs/3.3/components/)
 STATIC_PAGES = {
-    'presentation': {'title': "Présentation de Silene Nature", 'picto': 'glyphicon-question-sign', 'order': 0, 'template': 'static/custom/templates/presentation.html'}
+    'presentation': {
+        'title': "Présentation de Silene Nature",
+        'picto': 'fa-question-circle',
+        'order': 0,
+        'template': 'static/custom/templates/presentation.html'
+    }
 }
 
+###########################
+###########################
+#### Security  Config #####
+###########################
+###########################
+
+SECRET_KEY = '<secret-key>'

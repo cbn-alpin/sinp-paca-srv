@@ -131,6 +131,9 @@ VERSION_LOCATIONS = "/home/geonat/www/usershub/app/migrations/versions/"
     # Affiche le composant 'custom/components/footer' sur la page d'accueil
     DISPLAY_FOOTER = true
 
+    # Activer l'affichage des informations liées aux profils de taxons
+    ENABLE_PROFILES = true
+
 # Configuration cartographique
 [MAPCONFIG]
     BASEMAP = [

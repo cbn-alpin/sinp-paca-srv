@@ -113,6 +113,10 @@ TEXT_LAST_OBS = 'Les observations de l\'année écoulée |'
 # Carte de la fiche commune: nombre des 'x' dernières observations affichées
 NB_LAST_OBS=500
 
+# Temps en seconde de la durée du cache
+# utilisé pour les statistiques de la page d'accueil (stats global et rang taxonomique)
+# à synchroniser avec le raffraichissement des VM
+CACHE_TIMEOUT = 31536000
 
 ###########################
 ###### PAGE ACCUEIL #######

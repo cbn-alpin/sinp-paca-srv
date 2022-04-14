@@ -56,6 +56,12 @@ VERSION_LOCATIONS = "/home/geonat/www/usershub/app/migrations/versions/"
     ADMIN_APPLICATION_LOGIN = "<user-admin-login>"
     ADMIN_APPLICATION_PASSWORD = "<user-admin-password>"
 
+# Configuration de l'accès sans authentification
+[PUBLIC_ACCESS]
+    ENABLE_PUBLIC_ACCESS = true
+    PUBLIC_LOGIN = "user-public"
+    PUBLIC_PASSWORD = "<mot-de-passe>"
+
 # Gestion des demandes d'inscription
 [ACCOUNT_MANAGEMENT]
     ENABLE_SIGN_UP = true

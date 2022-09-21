@@ -21,11 +21,13 @@ COPY docker-entrypoint.sh /entrypoint.sh
 COPY matomo-archive.cron /etc/cron.d/matomo_archive
 RUN  chmod 0644 /etc/cron.d/matomo_archive \
 	&& chown root: /etc/cron.d/matomo_archive \
-	&& crontab /etc/cron.d/matomo_archive \
 	&& mkdir -p /var/www/html/tmp/logs/ \
 	&& touch /var/www/html/tmp/logs/matomo-archive.log \
 	&& touch /var/www/html/tmp/logs/matomo-archive-errors.log \
 	&& chown www-data: /var/www/html/tmp/logs/matomo-archive*
+
+# WARNING : to avoid empty matomo-archive.log.
+RUN printenv > /etc/environment
 
 # Create Msmtp config file
 COPY msmtprc.conf /etc/msmtprc

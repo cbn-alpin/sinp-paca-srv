@@ -44,7 +44,7 @@ VERSION_LOCATIONS = "/home/geonat/www/usershub/app/migrations/versions/"
     MAIL_USE_SSL = false
     MAIL_USERNAME = "<email-username>"
     MAIL_PASSWORD = "<email-password>"
-    MAIL_DEFAULT_SENDER = "<email-default-sender>"
+    #MAIL_DEFAULT_SENDER = "<email-default-sender>"
     MAIL_ASCII_ATTACHMENTS = false
     # email(s) to the administrator for the email logging
     ERROR_MAIL_TO = ["<email-error>"]
@@ -68,7 +68,7 @@ VERSION_LOCATIONS = "/home/geonat/www/usershub/app/migrations/versions/"
     AUTO_ACCOUNT_CREATION = false
     VALIDATOR_EMAIL = [
             "Julie DELAUGE <julie.delauge@cen-paca.org>",
-            "Géraldine KAPFER <geraldine.kapfer@cen-paca.org>",
+            "Hélène CHAUVIN <helene.chauvin@cen-paca.org>",
             "silene-admin@cbn-alpin.fr",
         ]
     AUTO_DATASET_CREATION = false
@@ -143,9 +143,9 @@ VERSION_LOCATIONS = "/home/geonat/www/usershub/app/migrations/versions/"
 # Configuration cartographique
 [MAPCONFIG]
     BASEMAP = [
-        {"name" = "OpenStreetMap", "layer" = "//{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png", "attribution" = "&copy OpenStreetMap"},
-        {"name" = "OpenTopoMap", "layer" = "//a.tile.opentopomap.org/{z}/{x}/{y}.png", "attribution" = "© OpenTopoMap"},
-        {"name" = "GoogleSatellite", "layer" = "//{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}", "subdomains" = ["mt0", "mt1", "mt2", "mt3"], "attribution" = "© GoogleMap"}
+        {"name" = "OpenStreetMap", "layer" = "//{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png", "attribution" = "&copy OpenStreetMap", "maxZoom" = 22, "maxNativeZoom" = 19},
+        {"name" = "OpenTopoMap", "layer" = "//a.tile.opentopomap.org/{z}/{x}/{y}.png", "attribution" = "© OpenTopoMap", "maxZoom" = 22, "maxNativeZoom" = 17},
+        {"name" = "GoogleSatellite", "layer" = "//{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}", "subdomains" = ["mt0", "mt1", "mt2", "mt3"], "attribution" = "© GoogleMap", "maxZoom" = 22, "maxNativeZoom" = 22}
     ]
     # Attention : les coordonnées sont au format [Y, X]
     # Cf leaflet configuration (https://leafletjs.com/reference-1.4.0.html#latlng-l-latlng)
@@ -258,7 +258,7 @@ VERSION_LOCATIONS = "/home/geonat/www/usershub/app/migrations/versions/"
     # Email du validateur des permissions d'accès.
     VALIDATOR_EMAIL = [
             "Julie DELAUGE <julie.delauge@cen-paca.org>",
-            "Géraldine KAPFER <geraldine.kapfer@cen-paca.org>",
+            "Hélène CHAUVIN <helene.chauvin@cen-paca.org>",
             "silene-admin@cbn-alpin.fr",
         ]
 

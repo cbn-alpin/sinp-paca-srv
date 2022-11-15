@@ -18,7 +18,8 @@ COPY docker-entrypoint.sh /entrypoint.sh
 
 # Set Cron for Matomo archive
 # DON'T USE dot or dash in cron.d script file name howerer the script will never execute.
-COPY matomo-archive.cron /etc/cron.d/matomo_archive
+# DON'T USE crontab because it's distinc of use of cron.d directory (service cron) !
+COPY matomo_archive.cron /etc/cron.d/matomo_archive
 RUN  chmod 0644 /etc/cron.d/matomo_archive \
 	&& chown root: /etc/cron.d/matomo_archive \
 	&& mkdir -p /var/www/html/tmp/logs/ \

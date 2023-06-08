@@ -145,7 +145,10 @@ VERSION_LOCATIONS = "/home/geonat/www/usershub/app/migrations/versions/"
     BASEMAP = [
         {"name" = "OpenStreetMap", "layer" = "//{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png", "attribution" = "&copy OpenStreetMap", "maxZoom" = 22, "maxNativeZoom" = 19},
         {"name" = "OpenTopoMap", "layer" = "//a.tile.opentopomap.org/{z}/{x}/{y}.png", "attribution" = "© OpenTopoMap", "maxZoom" = 22, "maxNativeZoom" = 17},
-        {"name" = "GoogleSatellite", "layer" = "//{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}", "subdomains" = ["mt0", "mt1", "mt2", "mt3"], "attribution" = "© GoogleMap", "maxZoom" = 22, "maxNativeZoom" = 22}
+        {"name" = "GoogleSatellite", "layer" = "//{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}", "subdomains" = ["mt0", "mt1", "mt2", "mt3"], "attribution" = "© GoogleMap", "maxZoom" = 22, "maxNativeZoom" = 22},
+        {"name" = "IGN Ortho", "layer" = "https://wxs.ign.fr/ortho/geoportail/wmts?&REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0&STYLE=normal&TILEMATRIXSET=PM&FORMAT=image/jpeg&LAYER=ORTHOIMAGERY.ORTHOPHOTOS&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}", "attribution" = "&copy; IGN", "maxZoom" = 22, "maxNativeZoom" = 19},
+        {"name" = "IGN Cadastre", "layer" = "https://wxs.ign.fr/parcellaire/geoportail/wmts?&REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0&STYLE=normal&TILEMATRIXSET=PM&FORMAT=image/png&LAYER=CADASTRALPARCELS.PARCELS&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}", "attribution" = "&copy; IGN", "maxZoom" = 22, "maxNativeZoom" = 19},
+        {"name" = "IGN Plan v2", "layer" = "https://wxs.ign.fr/cartes/geoportail/wmts?&REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0&STYLE=normal&TILEMATRIXSET=PM&FORMAT=image/png&LAYER=GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}", "attribution" = "&copy; IGN", "maxZoom" = 22, "maxNativeZoom" = 19}
     ]
     # Attention : les coordonnées sont au format [Y, X]
     # Cf leaflet configuration (https://leafletjs.com/reference-1.4.0.html#latlng-l-latlng)

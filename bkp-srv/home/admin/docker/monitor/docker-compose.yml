@@ -1,0 +1,98 @@
+version: "3.9"
+
+services:
+  monitor-influxdb:
+    image: influxdb:2.7.1
+    # https://hub.docker.com/_/influxdb
+    container_name: monitor-influxdb
+    restart: unless-stopped
+    ports:
+      - "10.0.1.30:8086:8086"
+      - "8089:8089/udp"
+    hostname: ${HOSTNAME_INFLUXDB:-influxdb-paca-sinp}
+    env_file:
+      - ./influxdb/.env
+    networks:
+      - nginx-proxy
+      - monitoring
+    environment:
+      VIRTUAL_HOST: influxdb.silene.eu
+      VIRTUAL_PORT: 8086
+      LETSENCRYPT_HOST: influxdb.silene.eu
+    healthcheck:
+      test: "curl -f http://localhost:8086/ping"
+      interval: 5s
+      timeout: 10s
+      retries: 5
+    volumes:
+      - influxdb-storage:/var/lib/influxdb/data
+      - data-influxdb2-storage:/var/lib/influxdb2
+      - conf-influxdb2-storage:/etc/influxdb2
+
+  monitor-grafana:
+    image: grafana/grafana:9.5.2
+    # https://hub.docker.com/r/grafana/grafana
+    container_name: monitor-grafana
+    restart: unless-stopped
+    expose:
+      - 3000
+    env_file:
+      - ./grafana/.env
+    depends_on:
+      - monitor-influxdb
+    networks:
+      - nginx-proxy
+      - monitoring
+    environment:
+      VIRTUAL_HOST: monitor.silene.eu
+      VIRTUAL_PORT: 3000
+      LETSENCRYPT_HOST: monitor.silene.eu
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f localhost:3000/api/health && echo 'ready'"]
+      interval: 10s
+      retries: 30
+    volumes:
+      - grafana-storage:/var/lib/grafana
+
+  monitor-grafana-renderer:
+    image: grafana/grafana-image-renderer:3.7.1
+    # https://hub.docker.com/r/grafana/grafana-image-renderer
+    container_name: monitor-grafana-renderer
+    restart: unless-stopped
+    ports:
+      - 8081
+    environment:
+      ENABLE_METRICS: "true"
+    networks:
+      - monitoring
+
+  monitor-grafana-backup:
+    image: ysde/docker-grafana-backup-tool:1.3.0
+    # https://hub.docker.com/r/ysde/docker-grafana-backup-tool
+    container_name: monitor-grafana-backup
+    restart: "no"
+    profiles: ["backup"]
+    depends_on:
+      - monitor-grafana
+    networks:
+      - nginx-proxy
+      - monitoring
+    environment:
+      - GRAFANA_TOKEN=${GRAFANA_TOKEN}
+      - GRAFANA_URL=http://monitor-grafana:3000
+      - GRAFANA_ADMIN_ACCOUNT=${GRAFANA_ADMIN_ACCOUNT}
+      - GRAFANA_ADMIN_PASSWORD=${GRAFANA_ADMIN_PASSWORD}
+      - VERIFY_SSL=False
+    volumes:
+       - ./grafana/backup:/opt/grafana-backup-tool/_OUTPUT_
+
+volumes:
+  grafana-storage:
+  influxdb-storage:
+  data-influxdb2-storage:
+  conf-influxdb2-storage:
+
+networks:
+  nginx-proxy:
+    external: true
+  monitoring:

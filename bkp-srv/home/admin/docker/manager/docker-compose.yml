@@ -1,0 +1,38 @@
+version: "3.9"
+
+services:
+  manager-portainer:
+    image: portainer/portainer-ce:2.18.3
+    # https://hub.docker.com/r/portainer/portainer-ce
+    container_name: "manager-portainer"
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    expose:
+      - 9443
+      - 8000
+    hostname: ${HOSTNAME:-sinp-paca-bkp}
+    environment:
+      VIRTUAL_HOST: ${DOMAIN}
+      VIRTUAL_PORT: 9443
+      VIRTUAL_PROTO: https
+      LETSENCRYPT_HOST: ${DOMAIN}
+    healthcheck:
+      # Workaround: because the Portainer image is based on the empty Scratch image, so does not contain curl or anything else for that matter.
+      test: ["CMD", "/docker", "container", "top", "manager-portainer"]
+    command: -H unix:///var/run/docker.sock --admin-password '${ENCRYPTED_PASSWORD}'
+    volumes:
+      # Try to change timezone for "Display timestamps" in log view => but don't work !
+      # See: https://github.com/portainer/portainer/issues/913
+      - /usr/share/zoneinfo/Europe/Paris:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer-storage:/data
+
+volumes:
+  portainer-storage:
+
+networks:
+  default:
+    name: ${NETWORK:-nginx-proxy}
+    external: true

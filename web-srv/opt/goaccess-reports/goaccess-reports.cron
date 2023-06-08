@@ -10,5 +10,6 @@ PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 0 3 * * * admin /opt/goaccess-reports/daily-report 2>&1 | mail -s "[Cron] <admin@sinp-paca-web> /opt/goaccess-reports/daily-report" -r "mailer@silene.eu" adminsys@silene.eu
 0 4 * * 1 admin /opt/goaccess-reports/weekly-report 2>&1 | mail -s "[Cron] <admin@sinp-paca-web> /opt/goaccess-reports/weekly-report" -r "mailer@silene.eu" adminsys@silene.eu
 0 5 * * * admin /opt/goaccess-reports/monthly-report 2>&1 | mail -s "[Cron] <admin@sinp-paca-web> /opt/goaccess-reports/monthly-report" -r "mailer@silene.eu" adminsys@silene.eu
+0 7 1 * * admin /otp/goaccess-reports/yearly-report 2>&1 | mail -s "[Cron] <admin@sinp-paca-web> /opt/goaccess-reports/monthly-report" -r "mailer@silene.eu" adminsys@silene.eu
 
 # An empty line is required at the end of this file for a valid cron file.

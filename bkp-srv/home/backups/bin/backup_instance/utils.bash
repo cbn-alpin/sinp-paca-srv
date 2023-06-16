@@ -30,10 +30,12 @@ function initScript() {
     readonly app_name="Backup Servers Instances"
     readonly app_code="bsi"
 
+    #+----------------------------------------------------------------------------+
     # Script time
     readonly time_start="$(date +%s)"
     readonly fmt_time_start="$(date -d @${time_start} "+%Y-%m-%d %H:%M:%S")"
 
+    #+----------------------------------------------------------------------------+
     # Useful paths
     readonly orig_cwd="$PWD"
     readonly script_path="${BASH_SOURCE[1]}"
@@ -45,10 +47,14 @@ function initScript() {
     # Directories pathes
     readonly lib_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)"
     readonly bin_dir="${script_dir}"
-    readonly root_dir="$(realpath ${bin_dir}/../)"
+    readonly root_dir="$(realpath ${bin_dir}/)"
     readonly conf_dir="${bin_dir}/"
     readonly tmp_dir="${root_dir}/tmp"
 	readonly log_dir="${tmp_dir}/log"
+
+    #+----------------------------------------------------------------------------+
+    # File path
+    readonly default_log_file="${log_dir}/$(date +'%Y-%m-%d')_${app_code}.log"
 
     #+----------------------------------------------------------------------------+
     # Shell colors

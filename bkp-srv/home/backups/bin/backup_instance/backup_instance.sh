@@ -13,7 +13,7 @@ Usage: ./$(basename $BASH_SOURCE) [options]
      -h | --help: display this help
      -v | --verbose: display more infos
      -x | --debug: display debug script infos
-     -c | --config: path to config file to use (default : config/settings.ini)
+     -c | --config: path to config file to use (default : settings.ini)
 
 Stop execution of specific operations:
      -a | --stop-all: don't execute all OpenStack operations

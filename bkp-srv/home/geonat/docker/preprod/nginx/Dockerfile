@@ -12,6 +12,7 @@ RUN apt-get update \
     && apt-get clean autoclean \
     && rm -fr /var/lib/apt/lists/{apt,dpkg,cache,log} /tmp/* /var/tmp/*
 
+
 # Add /etc/vim/vimrc.local
 RUN echo "runtime! defaults.vim" > /etc/vim/vimrc.local \
     && echo "let g:skip_defaults_vim = 1" >> /etc/vim/vimrc.local  \

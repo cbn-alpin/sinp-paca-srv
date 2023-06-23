@@ -9,10 +9,12 @@ services:
     image: nginx:1.24.0-bullseye
     # https://hub.docker.com/_/nginx
     container_name: preprod-nginx
+    hostname: preprod-nginx
     restart: unless-stopped
     expose:
       - 80
     environment:
+      TZ: Europe/Paris
       VIRTUAL_HOST: gnpp.silene.eu,uhpp.silene.eu,thpp.silene.eu,gnapp.silene.eu
       LETSENCRYPT_HOST: gnpp.silene.eu,uhpp.silene.eu,thpp.silene.eu,gnapp.silene.eu
     healthcheck:
@@ -28,15 +30,25 @@ services:
       # WARNING: Check if we can use ":ro" for /home/geonat/www/.
       - /home/geonat/www/:/home/geonat/www:ro
 
+
   preprod-postgres:
-    image: ${POSTGRES_IMAGE:-postgis/postgis:15-3.3}
+    build:
+      context: ./postgres/build/
+      dockerfile: Dockerfile
+      args:
+        - TZ=${TZ:-Europe/Paris}
+    image: postgis/postgis:15-3.3
+    # See: https://hub.docker.com/r/postgis/postgis
     container_name: preprod-postgres
+    hostname: preprod-postgres
     restart: unless-stopped
     logging:
       options:
         max-size: 10m
         max-file: 5
+    #user: "${HOST_USER_ID}:${HOST_USER_GID}"
     environment:
+      - TZ=${TZ:-Europe/Paris}
       - POSTGRES_DB=${POSTGRES_DB}
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
@@ -49,8 +61,10 @@ services:
       retries: 5
     volumes:
       - ${POSTGRES_INIT_DB_DIR-./postgres/initdb}:/docker-entrypoint-initdb.d/
+      - ./postgres/postgresql.conf:/etc/postgresql/postgresql.conf 
       - data-postgres-storage:/var/lib/postgresql/data
       - socket-postgres-storage:/var/run/postgresql
+    command: postgres -c config_file=/etc/postgresql/postgresql.conf
 
   preprod-postgres-restore:
     image: ${POSTGRES_IMAGE:-postgis/postgis:15-3.3}
@@ -60,6 +74,7 @@ services:
     depends_on:
       preprod-postgres:
         condition: service_healthy
+    #user: "${HOST_USER_ID}:${HOST_USER_GID}"
     environment:
       - POSTGRES_DB=${POSTGRES_DB}
       - POSTGRES_USER=${POSTGRES_USER}
@@ -67,6 +82,9 @@ services:
       - POSTGRES_HOST=preprod-postgres
       - POSTGRES_PORT=${POSTGRES_PORT}
       - POSTGRES_RESTORE_FILE=${POSTGRES_RESTORE_FILE}
+      - POSTGRES_RESTORE_ATLAS_DB_NAME=${POSTGRES_RESTORE_ATLAS_DB_NAME}
+      - POSTGRES_RESTORE_ATLAS_DB_USER=${POSTGRES_RESTORE_ATLAS_DB_USER}
+      - POSTGRES_RESTORE_ATLAS_DB_PASSWORD=${POSTGRES_RESTORE_ATLAS_DB_PASSWORD}
     volumes:
       - ${POSTGRES_RESTORE_DIR-./postgres/restore}:/restore/
       - socket-postgres-storage:/var/run/postgresql

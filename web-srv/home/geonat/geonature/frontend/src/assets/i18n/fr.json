@@ -275,7 +275,7 @@
       "taxaLabel": "Groupes taxonomiques",
       "taxaTooltip": "Saisir dans le champ les premières lettres du nom d'un groupe taxonomique supérieur au rang d'espèce. Sélectionner l'élément qui vous convient dans la liste proposée avec les touches directionnelles et valider votre sélection avec la touche « Entrée ».",
       "sensitiveAccessLabel": "Observations sensibles",
-      "sensitiveAccessText" : "Je souhaite accéder aux <a href=\"https://silene.eu/ressources-documentaires/donnees-sensibles/\" target=\"_blank\"> données sensibles flore</a>. Avant de cocher cette case, veuillez-vous assurer que vous remplissez <a href=\"https://silene.eu/wp-content/uploads/2022/03/ReglesAccesDSFlore-2022-VF.pdf\" target=\"_blank\">les conditions d'octroi</a>. Veuillez également renseigner le champ description de manière détaillée dans la motivation de votre demande.",
+      "sensitiveAccessText" : "Je souhaite accéder aux <a href=\"https://silene.eu/ressources-documentaires/donnees-sensibles/\" target=\"_blank\"> données sensibles flore</a> (indiquer « Plantae » dans le champ « Groupe taxonomique »).",
       "sensitiveAccessRules": "Merci de consulter au préalable les règles d’accès aux données sensibles",
       "endDateLabel": "Accès jusqu'au",
       "sending": "Votre demande est en cours d'envoi...",

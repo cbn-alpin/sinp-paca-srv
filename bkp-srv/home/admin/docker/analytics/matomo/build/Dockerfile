@@ -1,4 +1,4 @@
-FROM matomo:4.14.2-fpm
+FROM matomo:5.0.3-fpm
 # See : https://github.com/matomo-org/docker/blob/master/fpm/Dockerfile
 
 ARG MSMTP_OVH_PWD
@@ -40,10 +40,10 @@ RUN  chmod 0644 /etc/cron.d/matomo_archive \
 RUN printenv > /etc/environment
 
 # Create Msmtp config file
-COPY msmtprc.conf /etc/msmtprc
-RUN sed -i "s/\$MSMTP_OVH_PWD/${MSMTP_OVH_PWD}/g" /etc/msmtprc && \
-	chmod 600 /etc/msmtprc && \
-	chown www-data:www-data /etc/msmtprc
+COPY msmtprc.tpl.conf /etc/msmtprc
+RUN sed -i "s/\$MSMTP_OVH_PWD/${MSMTP_OVH_PWD}/g" /etc/msmtprc \
+	&& chmod 600 /etc/msmtprc \
+	&& chown www-data:www-data /etc/msmtprc
 
 # Add /etc/vim/vimrc.local
 RUN echo "runtime! defaults.vim" > /etc/vim/vimrc.local \

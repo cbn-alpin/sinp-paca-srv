@@ -9,7 +9,6 @@ sur le serveur, utiliser `rsync` en testant avec l'option `--dry-run` (à suppri
 
 ```shell
 # Exemple pour analytics
-cd analytics
 rsync -av --exclude .gitignore ./bkp-srv/home/admin/docker/analytics/ admin@bkp-paca-sinp:/home/admin/docker/analytics/ --dry-run
 ```
 
@@ -22,3 +21,4 @@ Pour synchroniser ces fichiers avec le serveur utiliser `rsync` :
 ```shell
 rsync -av --exclude .gitignore ./bkp-srv/home/admin/docker/ admin@bkp-paca-sinp:/home/admin/docker/ --dry-run
 ```
+

@@ -1,4 +1,8 @@
 # WARNING: up timeout to 300s for Synthese downloading (See bug )
 proxy_read_timeout 300s;
-proxy_connect_timeout 75s; 
+proxy_connect_timeout 75s;
+
+proxy_pass_request_headers on;
+proxy_set_header X-Real-IP $remote_addr;
+#more_set_input_headers 'Authorization: $http_authorization';
 

@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   analytics-nginx:
-    image: nginx:1.24.0-bullseye
+    image: nginx:1.26.0-bookworm
     # https://hub.docker.com/_/nginx
     container_name: analytics-nginx
     restart: unless-stopped
@@ -26,7 +26,7 @@ services:
     build:
       context: ./matomo/build
       dockerfile: Dockerfile
-    image: matomo:4.14.2-fpm
+    image: cbna/matomo:5.0.3-fpm
     # https://hub.docker.com/_/matomo
     container_name: analytics-matomo
     restart: unless-stopped
@@ -53,7 +53,7 @@ services:
       - matomo-storage:/var/www/html
 
   analytics-mariadb:
-    image: mariadb:10.11.3
+    image: mariadb:11.3.2-jammy
     # https://hub.docker.com/_/mariadb
     container_name: analytics-mariadb
     restart: unless-stopped
@@ -68,7 +68,7 @@ services:
       # See : https://github.com/docker-library/mariadb/issues/160
       MYSQL_INITDB_SKIP_TZINFO: "yes"
     healthcheck:
-      test: ["CMD-SHELL", "mysqladmin ping -P 3306 -p${MYSQL_ROOT_PASSWORD} | grep 'mysqld is alive' || exit 1"]
+      test: ["CMD-SHELL", "mariadb-admin ping -P 3306 -p${MYSQL_ROOT_PASSWORD} | grep 'mysqld is alive' || exit 1"]
       interval: 2s
       retries: 5
     volumes:

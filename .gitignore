@@ -4,6 +4,7 @@
 !*.sample.conf
 !*.default.conf
 !web-srv/etc/**/*.conf
+!db-srv/etc/**/*.conf
 .env*
 msmtp.env
 !.env.sample

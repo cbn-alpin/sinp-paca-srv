@@ -48,7 +48,7 @@ DEFAULT_LANGUAGE = 'fr'
 MULTILINGUAL = False
 
 # Available languages
-# Don't delete, even if you disable MULTILINGUAL
+# Don't delete, even if you disable MULTILINGUAL
 # You need to add your own default language (DEFAULT_LANGUAGE) here if it's not present
 # Check documentation to add another language
 LANGUAGES = {
@@ -73,32 +73,30 @@ LANGUAGES = {
 ###### CARTOGRAPHIE #######
 ###########################
 
-# Clé IGN si vous utilisez l'API Geoportail pour afficher les fonds cartographiques
-#IGNAPIKEY = '***REMOVED***'
-
 # Configuration des cartes (centre du territoire, couches CARTE et ORTHO, échelle par défaut...)
 MAP = {
-    'LAT_LONG': [43.96387, 6.06216],
-    'FIRST_MAP': {
-            'url' : '//{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png',
-            'attribution' : '&copy OpenStreetMap',
-            'tileName' : 'OSM'
+    "LAT_LONG": [43.96387, 6.06216],
+    "FIRST_MAP": {
+        "url": "//{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png",
+        "attribution": "&copy OpenStreetMap",
+        "tileName": "OSM",
     },
-    'SECOND_MAP' : {'url' :'//a.tile.opentopomap.org/{z}/{x}/{y}.png',
-            'attribution' : '&copy OpenStreetMap-contributors, SRTM | Style: &copy OpenTopoMap (CC-BY-SA)',
-            'tileName' : 'OTM'
+    "SECOND_MAP": {
+        "url": "//data.geopf.fr/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&STYLE=normal&TILEMATRIXSET=PM&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}&LAYER=HR.ORTHOIMAGERY.ORTHOPHOTOS&FORMAT=image/jpeg",
+        "attribution": "&copy IGN",
+        "tileName": "IGN Ortho",
     },
-    #'SECOND_MAP' : {'url' :'https://gpp3-wxs.ign.fr/'+IGNAPIKEY+'/geoportail/wmts?LAYER=ORTHOIMAGERY.ORTHOPHOTOS&EXCEPTIONS=text/xml&FORMAT=image/jpeg&SERVICE=WMTS&VERSION=1.0.0&REQUEST=GetTile&STYLE=normal&TILEMATRIXSET=PM&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}',
-    #        'attribution' : '&copy; <a href="http://www.ign.fr/">IGN</a>',
-    #        'tileName' : 'Ortho IGN'
-    #},
-    'ZOOM' : 8,
+    "ZOOM": 8,
+    "MIN_ZOOM": 7,
+    "MAX_BOUNDS": [[41.53, 1.71], [46.19, 11]],
     # Pas du slider sur les annees d'observations: 1 = pas de 1 an sur le slider
-    'STEP': 1,
+    "STEP": 1,
     # Couleur et épaisseur des limites du territoire
-    'BORDERS_COLOR': '#000000',
-    'BORDERS_WEIGHT': 3,
-    'ENABLE_SLIDER': True
+    "BORDERS_COLOR": "#000000",
+    "BORDERS_WEIGHT": 3,
+    "MASK_STYLE": {"fill": True, "fillColor": "#020202", "fillOpacity": 0.3},
+    "ENABLE_SLIDER": True,
+    "ENABLE_SCALE": True,
 }
 
 # Affichage des observations par maille ou point
@@ -172,7 +170,7 @@ REMOTE_MEDIAS_PATH = "static/medias/"
 # URL de TaxHub (pour génération à la volée des vignettes des images).
 # Si le service Taxhub n'est pas utilisé, commenter la variable
 REDIMENSIONNEMENT_IMAGE = True
-# si redimmentionnement image = True, indiquer l'URL de taxhub
+# si redimmentionnement image = True, indiquer l'URL de taxhub
 TAXHUB_URL = "https://taxhub.silene.eu"
 
 # Coupe le nom_vernaculaire à la 1ere virgule sur les fiches espèces

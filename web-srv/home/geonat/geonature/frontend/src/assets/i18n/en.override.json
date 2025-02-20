@@ -1,0 +1,7 @@
+{
+  "Permissions": {
+    "accessRequest": {
+      "sensitiveAccessText" : "I would like to access the <a href=\"https://silene.eu/ressources-documentaires/donnees-sensibles/\" target=\"_blank\">sensitive flora data</a> (indicate “Plantae” in the “Taxonomic group” field)."
+    }
+  }
+}

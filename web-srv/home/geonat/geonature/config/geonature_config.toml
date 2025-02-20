@@ -68,7 +68,7 @@ VERSION_LOCATIONS = "/home/geonat/www/usershub/app/migrations/versions/"
     AUTO_ACCOUNT_CREATION = false
     VALIDATOR_EMAIL = [
             "Julie DELAUGE <julie.delauge@cen-paca.org>",
-            "Hélène CHAUVIN <helene.chauvin@cen-paca.org>",
+            "Yolan RICHARD <yolan.richard@cen-paca.org>",
             "silene-admin@cbn-alpin.fr",
         ]
     AUTO_DATASET_CREATION = false
@@ -143,12 +143,13 @@ VERSION_LOCATIONS = "/home/geonat/www/usershub/app/migrations/versions/"
 # Configuration cartographique
 [MAPCONFIG]
     BASEMAP = [
-        {"name" = "OpenStreetMap", "layer" = "//{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png", "attribution" = "&copy OpenStreetMap", "maxZoom" = 22, "maxNativeZoom" = 19},
-        {"name" = "OpenTopoMap", "layer" = "//a.tile.opentopomap.org/{z}/{x}/{y}.png", "attribution" = "© OpenTopoMap", "maxZoom" = 22, "maxNativeZoom" = 17},
-        {"name" = "GoogleSatellite", "layer" = "//{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}", "subdomains" = ["mt0", "mt1", "mt2", "mt3"], "attribution" = "© GoogleMap", "maxZoom" = 22, "maxNativeZoom" = 22},
-        {"name" = "IGN Ortho", "layer" = "https://wxs.ign.fr/ortho/geoportail/wmts?&REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0&STYLE=normal&TILEMATRIXSET=PM&FORMAT=image/jpeg&LAYER=ORTHOIMAGERY.ORTHOPHOTOS&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}", "attribution" = "&copy; IGN", "maxZoom" = 22, "maxNativeZoom" = 19},
-        {"name" = "IGN Cadastre", "layer" = "https://wxs.ign.fr/parcellaire/geoportail/wmts?&REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0&STYLE=normal&TILEMATRIXSET=PM&FORMAT=image/png&LAYER=CADASTRALPARCELS.PARCELS&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}", "attribution" = "&copy; IGN", "maxZoom" = 22, "maxNativeZoom" = 19},
-        {"name" = "IGN Plan v2", "layer" = "https://wxs.ign.fr/cartes/geoportail/wmts?&REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0&STYLE=normal&TILEMATRIXSET=PM&FORMAT=image/png&LAYER=GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}", "attribution" = "&copy; IGN", "maxZoom" = 22, "maxNativeZoom" = 19}
+        {"name" = "OpenStreetMap",    "layer" = "//{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png", "attribution" = "&copy; OpenStreetMap", "maxZoom" = 22, "maxNativeZoom" = 19},
+        {"name" = "OpenTopoMap",      "layer" = "//a.tile.opentopomap.org/{z}/{x}/{y}.png", "attribution" = "&copy; OpenTopoMap", "maxZoom" = 22, "maxNativeZoom" = 17},
+        {"name" = "GoogleSatellite",  "layer" = "//{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}", "subdomains" = ["mt0", "mt1", "mt2", "mt3"], "attribution" = "&copy; GoogleMap", "maxZoom" = 22, "maxNativeZoom" = 22},
+        {"name" = "IGN Ortho",        "layer" = "https://data.geopf.fr/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&STYLE=normal&TILEMATRIXSET=PM&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}&LAYER=HR.ORTHOIMAGERY.ORTHOPHOTOS&FORMAT=image/jpeg", "attribution" = "&copy; IGN", "maxZoom" = 22, "maxNativeZoom" = 19},
+        {"name" = "IGN Cadastre",     "layer" = "https://data.geopf.fr/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&STYLE=normal&TILEMATRIXSET=PM&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}&LAYER=CADASTRALPARCELS.PARCELS&FORMAT=image/png", "attribution" = "&copy; IGN", "maxZoom" = 22, "maxNativeZoom" = 19},
+        {"name" = "IGN Plan v2",      "layer" = "https://data.geopf.fr/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&STYLE=normal&TILEMATRIXSET=PM&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}&LAYER=GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2&FORMAT=image/png", "attribution" = "&copy; IGN", "maxZoom" = 22, "maxNativeZoom" = 19},
+        {"name" = "BRGM Géologie", "url" = "https://geoservices.brgm.fr/WMS-C/?", "service" = "wms", "layers" = "GEOLOGIE", "attribution" = '&copy; BRGM - <a href="https://infoterre.brgm.fr/viewer/" target="_blank">BD Charm-50</a>'}
     ]
     # Attention : les coordonnées sont au format [Y, X]
     # Cf leaflet configuration (https://leafletjs.com/reference-1.4.0.html#latlng-l-latlng)
@@ -188,6 +189,13 @@ VERSION_LOCATIONS = "/home/geonat/www/usershub/app/migrations/versions/"
     # Affiche (=true) ou masque (=false) l'arbre de recherche taxonomique
     # dans la recherche taxonomique avancée.
     DISPLAY_TAXON_TREE = false
+
+    # Activer (=true) ou pas (=false) la clusterisation des objets sur la carte
+    # Si 'false', passez le NB_MAX_OBS_MAP à 10000 pour éviter
+    # de surcharger les navigateurs des clients (question de performances).
+    ENABLE_LEAFLET_CLUSTER = true
+
+    LEALET_CLUSTER_DISABLE_ZOOM = 18
 
     # Nombre max d'observation dans les exports
     # WARNING : Au 2020-11-12, un bug empêche d'avoir une valeur différente pour les export.
@@ -238,6 +246,7 @@ VERSION_LOCATIONS = "/home/geonat/www/usershub/app/migrations/versions/"
         "type_source",
         "sensibilite",
         "confidentialite",
+        "floutage"
     ]
     ENABLE_AREA_AGGREGATION = true
     AREA_AGGREGATION_TYPE = "M5"
@@ -249,9 +258,8 @@ VERSION_LOCATIONS = "/home/geonat/www/usershub/app/migrations/versions/"
     ENABLE_ACCESS_REQUEST = true
     # Activer la possibilité de demander l'accès aux données sensibles.
     ENABLE_SENSITIVE_ACCESS = true
-    # Lien vers les règles d'accès aux observations sensibles propres à
-    # cette instance de GeoNature
-    #DATA_ACCESS_RULES_LINK = "https://silene.eu/wp-content/uploads/2022/03/ReglesAccesDSFlore-2022-VF.pdf"
+    # Rend obligatoire la coche de l'accès aux données sensibles.
+    ENABLE_MANDATORY_SENSITIVE_ACCESS = false
     # Types zones géo formulaire de demande d'accès.
     AREA_TYPES = ["COM", "DEP", "SINP"]
     # Durée minimum en jour pendant laquelle l'accès est autorisé.
@@ -261,7 +269,7 @@ VERSION_LOCATIONS = "/home/geonat/www/usershub/app/migrations/versions/"
     # Email du validateur des permissions d'accès.
     VALIDATOR_EMAIL = [
             "Julie DELAUGE <julie.delauge@cen-paca.org>",
-            "Hélène CHAUVIN <helene.chauvin@cen-paca.org>",
+			"Yolan RICHARD <yolan.richard@cen-paca.org>",
             "silene-admin@cbn-alpin.fr",
         ]
 
@@ -362,3 +370,75 @@ VERSION_LOCATIONS = "/home/geonat/www/usershub/app/migrations/versions/"
             {level = "2", area = "M10"},# Maille
             {level = "3", area = "M10"},# Département
         ]
+    # Nom de la colonne du fichier d'export de la Synthese contenant les informations
+    # de la nomenclature DEE_FLOU. La présence de cette colonne n'est pas obligatoire.
+    # Si présente, sa valeur est forcée a OUI si la donnée a été floutée par le niveau de
+    # sensibilité.
+    EXPORT_FIELD_BLURRING = "floutage"
+
+# Add display criteria
+[SYNTHESE.MAP_CRITERIA_LIST.precision]
+    label = "Précision localisation"
+    type = "classes"
+    field = "precision"
+    default = false
+    [[SYNTHESE.MAP_CRITERIA_LIST.precision.values]]
+        value = 250
+        label = "Supérieur à 250m"
+        description = "Observations dont la précision est supérieure ou égale à 250m."
+        color = "#ff8faa"
+        icon = { name="radio_button_unchecked", color="white", font="material-icons-outlined" }
+    [[SYNTHESE.MAP_CRITERIA_LIST.precision.values]]
+        value = 25
+        label = "Entre 25 et 250m"
+        description = "Observations dont la précision est supérieure ou égale à 25m et inférieure à 250m."
+        color = "#f95e9c"
+        icon = { name="radio_button_checked", color="white", font="material-icons-outlined" }
+    [[SYNTHESE.MAP_CRITERIA_LIST.precision.values]]
+        value = 0
+        label = "Inférieur à 25m"
+        description = "Observations dont la précision est supérieure ou égale à 0m et inférieure à 25m."
+        color = "#b000bb"
+        icon = { name="gps_fixed", color="white", font="material-icons-outlined" }
+    [[SYNTHESE.MAP_CRITERIA_LIST.precision.values]]
+        value = "*"
+        label="Valeurs multiples"
+        description = "Observations sur une même géométrie avec des précisions différentes."
+        color = "#e6dc36"
+        icon = { name="fa-asterisk", color="white", font="fa" }
+    [[SYNTHESE.MAP_CRITERIA_LIST.precision.values]]
+        value = "?"
+        label="Valeur inconnue"
+        description = "Observations dont la précision contient une valeur non prise en charge."
+        color = "#14ec00"
+        icon = { name="fa-question", color="white", font="fa" }
+
+[SYNTHESE.MAP_CRITERIA_LIST.period]
+    label = "Périodes"
+    type = "dates"
+    field = "date_max"
+    default = false
+    [[SYNTHESE.MAP_CRITERIA_LIST.period.values]]
+        value = "1999-12-31T00:00:00"
+        label = "Après 2000"
+        description = "Observations dont la date de fin est égale ou supérieure au 1er janvier 2000."
+        color = "#225ea8"
+        icon = { name="fa-angle-double-right", color="white", font="fa" }
+    [[SYNTHESE.MAP_CRITERIA_LIST.period.values]]
+        value = "0000-01-01T00:00:00"
+        label = "Avant 2000"
+        description = "Observations dont la date de fin est avant le 1er janvier 2000."
+        color = "#2ca25f"
+        icon = { name="fa-angle-double-left", color="white", font="fa" }
+	[[SYNTHESE.MAP_CRITERIA_LIST.period.values]]
+        value = "*"
+        label="Valeurs multiples"
+        description = "Observations sur une même géométrie avec des périodes différentes."
+        color = "#e6dc36"
+        icon = { name="fa-asterisk", color="white", font="fa" }
+    [[SYNTHESE.MAP_CRITERIA_LIST.period.values]]
+        value = "?"
+        label="Valeur inconnue"
+        description = "Observations dont la date de fin contient une valeur non prise en charge."
+        color = "#14ec00"
+        icon = { name="fa-question", color="white", font="fa" }

@@ -402,16 +402,12 @@ VERSION_LOCATIONS = "/home/geonat/www/usershub/app/migrations/versions/"
         icon = { name="gps_fixed", color="white", font="material-icons-outlined" }
     [[SYNTHESE.MAP_CRITERIA_LIST.precision.values]]
         value = "*"
-        label="Valeurs multiples"
         description = "Observations sur une même géométrie avec des précisions différentes."
         color = "#e6dc36"
-        icon = { name="fa-asterisk", color="white", font="fa" }
     [[SYNTHESE.MAP_CRITERIA_LIST.precision.values]]
         value = "?"
-        label="Valeur inconnue"
         description = "Observations dont la précision contient une valeur non prise en charge."
         color = "#14ec00"
-        icon = { name="fa-question", color="white", font="fa" }
 
 [SYNTHESE.MAP_CRITERIA_LIST.period]
     label = "Périodes"
@@ -432,13 +428,9 @@ VERSION_LOCATIONS = "/home/geonat/www/usershub/app/migrations/versions/"
         icon = { name="fa-angle-double-left", color="white", font="fa" }
 	[[SYNTHESE.MAP_CRITERIA_LIST.period.values]]
         value = "*"
-        label="Valeurs multiples"
         description = "Observations sur une même géométrie avec des périodes différentes."
         color = "#e6dc36"
-        icon = { name="fa-asterisk", color="white", font="fa" }
     [[SYNTHESE.MAP_CRITERIA_LIST.period.values]]
         value = "?"
-        label="Valeur inconnue"
         description = "Observations dont la date de fin contient une valeur non prise en charge."
         color = "#14ec00"
-        icon = { name="fa-question", color="white", font="fa" }

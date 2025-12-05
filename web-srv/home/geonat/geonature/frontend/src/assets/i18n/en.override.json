@@ -1,7 +1,10 @@
 {
-  "Permissions": {
-    "accessRequest": {
-      "sensitiveAccessText" : "I would like to access the <a href=\"https://silene.eu/ressources-documentaires/donnees-sensibles/\" target=\"_blank\">sensitive flora data</a> (indicate “Plantae” in the “Taxonomic group” field)."
-    }
-  }
+	"Permissions": {
+		"accessRequest": {
+			"sensitiveAccessText": "After prior verification (actual presence of sensitive FLORE data within the requested area), my project justifies access to the precise location <a href=\"https://silene.eu/ressources-documentaires/donnees-sensibles/\" target=\"_blank\">of sensitive flora data</a> (also specify “Plantae“ in the “Taxonomic Groups“ field)"
+		}
+	},
+	"Synthese": {
+		"BlurredSensitiveObsMessage": "<strong>Warning</strong>: The results of your query contain data blurred by sensitivity. Their location will be degraded if you have not requested specific access to this data.<br/><br/>In this case, in the downloadable observation file, the location of this sensitive data will be indicated as “approximate“ (<i>{{blurringField}}</i> field) and the species will be classified as “sensitive data“ (<i>sensibilite</i> field).<br/><br/><strong>After verifying the actual presence of FLORE sensitive data within the scope of your project</strong>, you can request access to the precise location of the <strong>FLORE sensitive data</strong>. In this case, please fill out the <a href=\"{{requestAccessUrl}}\">available access request form</a> (<a href=\"https://silene.eu/ressources-documentaires/donnees-sensibles/\" target=\"_blank\">access conditions are detailed here</a>).<br/><br/><b>Please note</b>, as the regional sensitivity reference system for fauna data is being finalized, access to sensitive FAUNA data is not currently open at a scale smaller than 10km grid."
+	}
 }

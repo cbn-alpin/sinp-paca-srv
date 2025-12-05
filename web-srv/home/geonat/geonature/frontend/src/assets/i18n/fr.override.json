@@ -1,7 +1,10 @@
 {
-  "Permissions": {
-    "accessRequest": {
-      "sensitiveAccessText" : "Je souhaite accéder aux <a href=\"https://silene.eu/ressources-documentaires/donnees-sensibles/\" target=\"_blank\">données sensibles flore</a> (indiquer « Plantae » dans le champ « Groupe taxonomique »)."
-    }
-  }
+	"Permissions": {
+		"accessRequest": {
+			"sensitiveAccessText": "Après vérification préalable (présence effective de données sensibles FLORE sur le périmètre sollicité), mon projet justifie l'accès à la localisation précise <a href=\"https://silene.eu/ressources-documentaires/donnees-sensibles/\" target=\"_blank\">des données sensibles flore</a> (précisez également « Plantae » dans le champ « Groupes taxonomiques »)"
+		}
+	},
+	"Synthese": {
+		"BlurredSensitiveObsMessage": "<strong>Avertissement</strong> : les résultats de votre requête contiennent des données floutées par la sensibilité. Leur localisation sera dégradée si vous n’avez pas sollicité un accès spécifique à ces données.<br/><br/>Dans ce cas, dans le fichier téléchargeable des observations, la localisation de ces données sensibles sera indiquée comme « approximative » (champs <i>{{blurringField}}</i>) et l'espèce sera qualifiée de « données sensible » (champ <i>sensibilite</i>).<br/><br/><strong>Après avoir vérifier la présence effective de données sensibles FLORE sur le périmètre de votre projet</strong>, vous pouvez solliciter un accès à la localisation précise des <strong>données sensibles FLORE</strong>. Dans ce cas, veuillez remplir le <a href=\"{{requestAccessUrl}}\">formulaire disponible de demande d'accès</a> (<a href=\"https://silene.eu/ressources-documentaires/donnees-sensibles/\" target=\"_blank\">les conditions d'accès sont détaillées ici</a>).<br/><br/><b>Attention</b>, le référentiel régional de sensibilité pour la faune étant en cours de finalisation, l'accès aux données sensibles FAUNE n'est actuellement pas ouvert à une échelle inférieure à la maille de 10km."
+	}
 }
